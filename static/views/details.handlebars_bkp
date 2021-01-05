@@ -1,0 +1,88 @@
+<style>
+  .full-footer{
+  background-color: #243c4f;
+  
+}
+.top-footer p{
+  color: white;
+}
+.top-footer a{
+  color: white;
+  font-weight: 600;
+}
+.top-footer{
+  color: white;
+}
+.bottom-footer{
+  background-color: #031b2e;
+}
+.bottom-footer p{
+  color: white;
+}
+</style>
+
+<!--content-->
+<div class="jumbotron">
+    <div class="card mb-3">
+      <center>
+        <p class="lead">For More Details Contact                     
+          <p class="lead"><a href="tel:+919629203228"><i class="fas fa-phone"></i> +(91) 9629203228 </a><br> </p>         
+          <p class="lead"><a href="tel:+919629203229"><i class="fas fa-phone"></i> +(91) 9629203229 </a><br></p>
+        </p>
+      </center>
+      <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+        {{#each otherPhoto}}
+          <div class="carousel-item {{#unless @index}} active {{/unless}}">
+            <img class="d-block w-100" src="{{this}}" alt="First slide">
+          </div>
+        {{/each}}
+
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>  
+      <hr class="my-4">
+
+
+        <div class="card-body">
+          <h5 class="card-title display-4">{{name}}</h5>
+          <p class="card-text lead">Ref No: <input id='Ref' value="{{list_id}}" type="text" readonly/><i class="far fa-copy" id='copy'></i></p>
+          <p class="card-text lead">Category:<strong style='text-transform:capitalize'>{{categ}}</strong></p>
+          <p class="card-text lead">Date of birth: {{dob}}</p>
+          <p class="card-text lead">Age: {{age}}</p>
+          <p class="card-text lead">Gender: {{sex}}</p>
+          <p class="card-text lead">Blood group:{{bloodgrp}}</p>
+          <p class="card-text lead">Height: {{height}}</p>
+          <p class="card-text lead">Weight: {{weight}}</p>
+          <p class="card-text lead">Qualification: {{qualification}}</p>
+          <p class="card-text lead">Extra qualification: {{techqualification}}</p>
+          <p class="card-text lead">District: <span style='text-transform:capitalize'>{{city}}</span></p>
+        </div>
+    <!--    {{#if video}}
+        <center>
+         <div class="card-body">
+           
+            <video width="1000" controls>
+            <source src='{{video}}' type="video/mp4">
+            <source src='{{video}}' type="video/org">
+            Your browser does not support HTML video.
+            </video>
+        </div>
+        </center>
+      {{/if}}-->
+      </div>
+      </div>
+
+</div>
+
+<!--end content-->
+<script src='/st/f/j/details.js'>
+
+</script>

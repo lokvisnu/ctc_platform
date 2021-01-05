@@ -1,0 +1,55 @@
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+        /* START : Footer */
+.full-footer{
+  background-color: #243c4f;
+  
+}
+.top-footer p{
+  color: white;
+}
+.top-footer a{
+  color: white;
+  font-weight: 600;
+}
+.top-footer{
+  color: white;
+}
+.bottom-footer{
+  background-color: #031b2e;
+}
+.bottom-footer p{
+  color: white;
+}
+
+/* END : Footer */
+</style>
+<!--content-->
+<hr class="my-2">
+<div class="jumbotron">
+  <div class="container"> 
+    <form class="container" method='post' action="/u/in">
+      <div class="form-group">
+        <span id="errText" style="color: red;font-family:Arial, Helvetica, sans-serif">{{error}}</span><br>
+        <label for="exampleInputEmail1">Email</label>
+        <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="Enter Email" value="{{email}}"required>
+        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1">Password</label>
+        <input type="password" class="form-control" id="pass" name= "pass"placeholder="Password" required>
+      </div>
+      <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+      </div>
+      <button type="submit" class="btn btn-success" id = "loginBtn">Log In</button>
+      <div class="container signin">
+        <p class="text-center">Don't have an account? <a href="/signup">Sign Up</a></p>
+      </div>
+    </form>
+</div>
+  
+</div>
+<script src='/st/f/j/login.js'>
+</script>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{{title}}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="shortcut icon" href="/assets//favicon.ico" type="image/x-icon">
+         <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src ;script-src 'self' http://onlineerp.solution.quebec 'unsafe-inline' 'unsafe-eval';* "> -->
+        <meta charset="utf-8">
+        <link href="/assets/css/all.min.css" rel="stylesheet">
+        <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    </head>
+    <body>
+         <!-- Header -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+
+                <a href="/" class="navbar-brand">
+                    <img src="/st/f/img/logo2.png" width="30" height="30"
+                        alt="Bootstrap Tamil" loading="lazy" class="d-inline-block align-top">
+                    Cinema Thalam Creations</a>
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNavBar"
+                    aria-controls="myNavBar" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="myNavBar">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item {{home}}">
+                            <a href="/home" class="nav-link">Home</a>
+                        </li> 
+                        <li class="nav-item {{about}}">
+                            <a href="/about" class="nav-link">About</a>
+                        </li>
+                        <li class="nav-item {{whyctc}}">
+                            <a href="/whyctc" class="nav-link">Why CTC</a>
+                        </li>
+                        {{#if notLog}}
+                        <li class="nav-item {{artists}}">
+                            <a href="/artists" class="nav-link">Main page</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">Renewal</a>
+                        </li>
+                        {{/if}}
+                        {{#unless notLog}}
+                        <li class="nav-item {{login}}">
+                          <a href="/login" class="nav-link">Login</a>
+                        {{/unless}}
+                      </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Help
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="https://www.facebook.com/search/top?q=cinema%20thalam%20creations">Facebook</a>
+                                <a class="dropdown-item" href="https://www.instagram.com/cinema_thalam_creations/">Instagram</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="https://www.youtube.com/results?search_query=cinema+thalam+creations">Youtube</a>
+                            </div>
+                        </li>
+                        <li class="nav-item {{contact}}">
+                            <a href="/contact" class="nav-link">Contact</a>
+                        </li>
+                        {{#unless notLog}}
+                        <li class="nav-item {{signup}}">
+                            <a class="btn btn-success btn-lg" href="/signup" role="button">Sign Up</a>
+                        </li>
+                        {{else}}
+                         <li class="nav-item">
+                            <a class="btn btn-success btn-lg" href="/logout" role="button">Log Out</a>
+                        </li>
+                        {{/unless}}
+                    </ul>
+                        
+
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!-- End Header -->
+        {{{body}}}
+    <!--Footer-->
+    <footer class="full-footer w3-main" >
+    <div class="container top-footer p-md-3 p-1">
+      <div class="row">
+        <div class="col-md-4 pl-4 pr-4">
+          <h3 class="display-6">
+              Address
+          </h3>
+          <p class="lead" style="text-transform: capitalize;">
+               7/114, pillayar kovil street<br> Anavarathanallur<br>Seydunganallur<br>Thoothukudi - 628 809
+          </p>
+          <a style="color:silver;" class="p-1" href="https://www.facebook.com/search/top?q=cinema%20thalam%20creations"><i class="fab fa-2x fa-facebook-square"></i></a>
+
+          <a style="color: silver;" class="p-1" href="https://www.youtube.com/results?search_query=cinema+thalam+creations"><i class="fab fa-2x fa-youtube-square"></i></a>
+          <a style="color: silver;" class="p-1" href="https://www.instagram.com/cinema_thalam_creations/"><i class="fab fa-2x fa-instagram"></i></a>
+          <hr class="my-4">
+        </div>
+
+        <div class="col-md-4  pl-4 pr-4">
+          <h3 class="display-6">Important links</h3>
+          <a href="/about"><p class="lead">About Us</p></a>
+		  <a href="/whyctc"><p class="lead">Why CTC?</p></a>
+		  <a href="/login"><p class="lead">Log In</p></a>
+		  <a href="/signup"><p class="lead">Sign Up</p></a>
+          <a href="/contact"><p class="lead">Contact</p></a>
+          <hr class="my-4">
+        </div>
+
+     
+      <div class="col-md-4  pl-4 pr-4">
+          <h3 class="display-6"><b>Contact Us</b></h3>
+          <i class="fas fa-phone"></i><span class="lead"> +(91) 9629203228 </span><br></a>
+          <i class="fas fa-phone"></i><span class="lead"> +(91) 9629203229 </span> <br></a>
+          <i class="fas fa-phone"></i><span class="lead"> +(91) 9677085058 </span> <br></a>
+          <i class="fas fa-envelope"></i> <span class="lead">cinemathalamcreations@gmail.com</span> </a>
+          <div class="embed-responsive embed-responsive-16by9">
+             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7888.557080513686!2d77.82307420539084!3d8.665038330624098!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b040b4aa5c5c999%3A0x4deb28d9ba0fad6a!2sSeydunganallur%2C%20Tamil%20Nadu%20628809!5e0!3m2!1sen!2sin!4v1609438531534!5m2!1sen!2sin" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+              <hr class="my-4">
+            </div>
+          
+      </div>
+    </div>
+    </div>
+    <div class="container-fluid bottom-footer pt-2">
+      <div class="row">
+        <div class="col-12 text-center">
+          <p class="lead">Copyrights © 2020 - All rights reserved</p>
+          <p class="lead"><a href="https://www.spgvark.com/">Designed by SPGVARK</a></p>
+        </div>
+      </div>
+    </div>
+
+  </footer>  
+
+<!--end footer-->  
+<script src="/assets/js/jquery-3.5.1.slim.min.js" ></script>
+<script src="/assets/js/popper.min.js"></script>
+<script src="/assets/js/bootstrap.min.js" ></script>
+<script src="/assets/js/bootstrap.bundle.min.js"></script>
+    </body>
+
+</html>

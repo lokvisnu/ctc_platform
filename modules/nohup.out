@@ -1,0 +1,214 @@
+
+> ct_production@1.0.0 start
+> node index.js
+
+test1
+Server running at http://0.0.0.0:3000/
+(node:33046) DeprecationWarning: collection.ensureIndex is deprecated. Use createIndexes instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+successful
+Req Session: undefined
+Logged ; false
+Req Session: undefined
+Logged ; false
+Req Session: undefined
+Req Session: undefined
+Req Session: undefined
+Req Session: undefined
+Req Session: undefined
+Req Session: undefined
+Req Session: undefined
+Req Session: undefined
+Req Session: undefined
+Req Session: undefined
+Logged ; false
+Req Session: undefined
+Logged ; false
+Req Session: undefined
+Logged ; false
+Req Session: undefined
+Req Session: undefined
+Req Session: undefined
+Req Session: undefined
+Req Session: undefined
+Req Session: undefined
+Req Session: undefined
+Not Logged
+Req Session: undefined
+
+> ct_production@1.0.0 start
+> node index.js
+
+test1
+Server running at http://0.0.0.0:3000/
+(node:33213) DeprecationWarning: collection.ensureIndex is deprecated. Use createIndexes instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+successful
+Req Session: undefined
+Logged ; false
+Req Session: undefined
+Logged ; false
+Req Session: undefined
+Req Session: undefined
+Req Session: undefined
+Req Session: undefined
+Req Session: undefined
+Req Session: undefined
+Req Session: undefined
+Not Logged
+Req Session: undefined
+Req Session: undefined
+Req Session: undefined
+Not Logged
+{ email: 'spgvarkpvtltd@gmail.com', pass: 'spgvark@2017' }
+spgvark@2017
+Login Successful
+(node:33213) [DEP0106] DeprecationWarning: crypto.createDecipher is deprecated.
+Req Session: _iXtQ6Uh481610599902110
+Logged Check: undefined
+Check logged : Logged
+Logged
+_iXtQ6Uh481610599902110
+Phone Noa3eaca0ded0d64b14bd082e3c678811a
+{
+  purpose: 'Registration',
+  amount: '200',
+  currency: 'INR',
+  buyer_name: 'Sriram',
+  email: 'spgvarkpvtltd@gmail.com',
+  phone: null,
+  send_email: false,
+  send_sms: false,
+  allow_repeated_payments: false,
+  webhook: '',
+  redirect_url: 'https://www.ctcplatform.com/u/p?p=f3ef5bd3d7535b0fa2a29e01664bd4fd5f7d5c9af1bc3e09a52394267bd1cabfca1152e862767a2dd8e259e5d28446661529d18e257ece0bf4339843038f7109f401e6967e3a5da0b07d8f62b667c90d3d41201452572383511f2eb2d63d242816173dfff0900fa758c36031efee544f',
+  setWebhook: [Function: setWebhook],
+  setRedirectUrl: [Function: setRedirectUrl]
+}
+test2
+test3
+test4
+test6
+{
+    "success": false,
+    "message": "Invalid Auth Token."
+}
+
+Redirect
+{ success: false, message: 'Invalid Auth Token.' }
+TypeError: Cannot read property 'longurl' of undefined
+    at /home/ctc/ctc/CT Productions Website/modules/permissions.js:107:58
+    at processTicksAndRejections (node:internal/process/task_queues:93:5)
+Req Session: _iXtQ6Uh481610599902110
+
+> ct_production@1.0.0 start
+> node index.js
+
+test1
+e6df6c1e6d6709388e81b5c2c0564cc3
+6f418d8419aa98893cb11a17232631f5
+node:events:353
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use 0.0.0.0:3000
+    at Server.setupListenHandle [as _listen2] (node:net:1295:16)
+    at listenInCluster (node:net:1343:12)
+    at doListen (node:net:1480:7)
+    at processTicksAndRejections (node:internal/process/task_queues:81:21)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1322:8)
+    at processTicksAndRejections (node:internal/process/task_queues:80:21) {
+  code: 'EADDRINUSE',
+  errno: -98,
+  syscall: 'listen',
+  address: '0.0.0.0',
+  port: 3000
+}
+npm ERR! code 1
+npm ERR! path /home/ctc/ctc/CT Productions Website
+npm ERR! command failed
+npm ERR! command sh -c node index.js
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /home/ctc/.npm/_logs/2021-01-02T18_57_45_510Z-debug.log
+Req Session: undefined
+Logged ; false
+Req Session: _iXtQ6Uh481610599902110
+Logged Check: undefined
+Check logged : Logged
+_iXtQ6Uh481610599902110
+Logged
+Phone Noa3eaca0ded0d64b14bd082e3c678811a
+{
+  purpose: 'Registration',
+  amount: '200',
+  currency: 'INR',
+  buyer_name: 'Sriram',
+  email: 'spgvarkpvtltd@gmail.com',
+  phone: null,
+  send_email: false,
+  send_sms: false,
+  allow_repeated_payments: false,
+  webhook: '',
+  redirect_url: 'https://www.ctcplatform.com/u/p?p=f3ef5bd3d7535b0fa2a29e01664bd4fd5f7d5c9af1bc3e09a52394267bd1cabfca1152e862767a2dd8e259e5d28446661529d18e257ece0bf4339843038f7109f401e6967e3a5da0b07d8f62b667c90d05cb94b21dd891395614b741a1404b6a3750d13d7de19fb4bfca8740bd2f9843',
+  setWebhook: [Function: setWebhook],
+  setRedirectUrl: [Function: setRedirectUrl]
+}
+test2
+test3
+test4
+test6
+{
+    "success": false,
+    "message": "Invalid Auth Token."
+}
+
+Redirect
+{ success: false, message: 'Invalid Auth Token.' }
+TypeError: Cannot read property 'longurl' of undefined
+    at /home/ctc/ctc/CT Productions Website/modules/permissions.js:107:58
+    at processTicksAndRejections (node:internal/process/task_queues:93:5)
+Req Session: undefined
+Req Session: undefined
+Req Session: _iXtQ6Uh481610599902110
+Logged
+Req Session: _iXtQ6Uh481610599902110
+Logged Check: undefined
+Check logged : Logged
+Logged
+_iXtQ6Uh481610599902110
+Phone Noa3eaca0ded0d64b14bd082e3c678811a
+{
+  purpose: 'Registration',
+  amount: '200',
+  currency: 'INR',
+  buyer_name: 'Sriram',
+  email: 'spgvarkpvtltd@gmail.com',
+  phone: null,
+  send_email: false,
+  send_sms: false,
+  allow_repeated_payments: false,
+  webhook: '',
+  redirect_url: 'https://www.ctcplatform.com/u/p?p=f3ef5bd3d7535b0fa2a29e01664bd4fd5f7d5c9af1bc3e09a52394267bd1cabfca1152e862767a2dd8e259e5d28446661529d18e257ece0bf4339843038f7109f401e6967e3a5da0b07d8f62b667c90de244477393c4cb65b228bc37b124badc8e116320467c49747f2d3432110888e6',
+  setWebhook: [Function: setWebhook],
+  setRedirectUrl: [Function: setRedirectUrl]
+}
+test2
+test3
+test4
+test6
+{
+    "success": false,
+    "message": "Invalid Auth Token."
+}
+
+Redirect
+{ success: false, message: 'Invalid Auth Token.' }
+TypeError: Cannot read property 'longurl' of undefined
+    at /home/ctc/ctc/CT Productions Website/modules/permissions.js:107:58
+    at processTicksAndRejections (node:internal/process/task_queues:93:5)
+Req Session: undefined
+Req Session: undefined
+Req Session: undefined
+Req Session: undefined

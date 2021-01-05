@@ -1,0 +1,74 @@
+<style>
+        /* START : Footer */
+.full-footer{
+  background-color: #243c4f;
+  
+}
+.top-footer p{
+  color: white;
+}
+.top-footer a{
+  color: white;
+  font-weight: 600;
+}
+.top-footer{
+  color: white;
+}
+.bottom-footer{
+  background-color: #031b2e;
+}
+.bottom-footer p{
+  color: white;
+}
+
+/* END : Footer */
+</style>
+  <body>
+
+    <div class="jumbotron">
+        <div class="container"> 
+            <h1 class="display-4">Hello, CTC Friends!</h1>
+            <p class="lead">This is a simple website, where talented and interested people can register by paying 200.<br>And once you registered, then you will be hired for any upcoming projects...and be benefitted </p>
+            <hr class="my-4">
+            <p class="lead">It is our platform, come and join with us and show your talents. "Opportunities never wait for evryone!"</p>
+            {{#unless notLog}}  <a class="btn btn-success btn-lg" href="/signup" role="button">Sign Up</a>{{/unless}}
+            </p>
+  
+            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <img class="d-block w-100" src="/st/f/img/ecopy.jpg" alt="First slide">
+                  </div>
+                  <div class="carousel-item">
+                    <img class="d-block w-100" src="/st/f/img/IMG_20200714_131308copy.jpg" alt="Second slide">
+                  </div>
+                  <div class="carousel-item">
+                    <img class="d-block w-100" src="/st/f/img/istockphoto1copy.jpg" alt="Third slide">
+                  </div>
+                  <div class="carousel-item">
+                    <img class="d-block w-100" src="/st/f/img/istockphotocopy.jpg" alt="Fourth slide">
+                  </div>
+                  <div class="carousel-item">
+                    <img class="d-block w-100" src="/st/f/img/istockphoto-453554783-612x612copy.jpg" alt="Fifth slide">
+                  </div>
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+                </a>
+              </div>  
+              <hr class="my-4">
+            <div class="embed-responsive embed-responsive-4by3">
+               <iframe width="727" height="409" src="https://www.youtube.com/embed/I8l43v-YSUQ?autoplay=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>              </div>
+              <hr class="my-4">
+ 
+        </div>
+    </div>
+
+ <!--End content-->
+
+</body>

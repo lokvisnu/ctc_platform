@@ -1,0 +1,269 @@
+<style>
+        /* START : Footer */
+.full-footer{
+  background-color: #243c4f;
+  
+}
+.top-footer p{
+  color: white;
+}
+.top-footer a{
+  color: white;
+  font-weight: 600;
+}
+.top-footer{
+  color: white;
+}
+.bottom-footer{
+  background-color: #031b2e;
+}
+.bottom-footer p{
+  color: white;
+}
+
+/* END : Footer */
+</style>
+<hr class="my-2">
+<div class="jumbotron">
+  <div class="container"> 
+    <hr class="my-2">
+    <div class="jumbatron">
+    <div class="container">
+      <form method='post' action='/u/up' enctype="multipart/form-data">
+        <div class="form-group">
+          <h4 class = 'err' id='err' style="color: red;font-family:Arial, Helvetica, sans-serif;">{{error}}</h4>
+          <label for="inputAddress">Name</label>
+          <input type="text" class="form-control" name="firstname" id="firstname" placeholder="Enter your name">
+        </div>
+        <div class="form-group">
+          <label for="dob">Date of birth</label>
+          <input type="date" placeholder="Date of birth" name="dob" id="dob" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="age">Age</label>
+          <input type="number" placeholder="Your age" name="age" id="age" min="1" max="100" class="form-control">
+        </div>
+         <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="inputEmail4">Height(in cm)</label>
+            <input type="number" class="form-control" name="height" id="height" placeholder="Height">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="inputPassword4">Weight(in kg) </label>
+            <input type="number" class="form-control" name="weight" id="weight" placeholder="weight">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="sex">Sex</label>
+          <select name="sex" id="sex" class="form-control" required>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Transgender">Transgender</option>
+            <option value="others">Others</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="bloodgrp">Bloodgroup</label>
+          <select name="bloodgrp" id="bloodgrp" class="form-control">
+          <option value="A+">A+</option>
+          <option value="A-">A-</option>
+          <option value="B+">B+</option>
+          <option value="B-">B-</option>
+          <option value="O+">O+</option>
+          <option value="O-">O-</option>
+          <option value="AB+">AB+</option>
+          <option value="AB-">AB-</option>
+          <option value="others">Others</option>
+        </select>
+        </div>
+        <div class="form-group">
+          <label for="qualification">Qualification</label>
+          <input type="text" placeholder="Your Qualification" name="qualification" id="qualification" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="qualification">Technical Qualification</label>
+          <input type="text" placeholder="Your Tcehical Qualification" name="techqualification" id="techqualification" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="exp">Experience</label>
+          <input type="number" placeholder="Years of Experience" name="exp" id="exp" class="form-control"> 
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="inputEmail4">Email</label>
+            <input type="email" class="form-control" name="email" id="email" placeholder="Email" required>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="inputPassword4">Password(Create Your Password)</label>
+            <input type="password" class="form-control" name="pass" id="pass" placeholder="Password(Create Your Password)" required>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="inputPassword4">Confirm Password(Re-enter Password)</label>
+            <input type="password" class="form-control" name="rePwd" id="rePwd" placeholder="Confirm Password(Re-enter Password)" required>
+          </div>
+        </div>
+        <div class="form-group">
+            <label for="Aadhar">Aadhar</label>
+            <input type="number" class="form-control" name="aadhar" id="aadhar" maxLength='12' required>
+          </div>
+               <div class="form-group">
+          <label for="phno">Phone Number</label>
+          <input type="tel" id="phno" name="phno" placeholder="1234567890" class="form-control"   maxLength='10' required>
+        </div>
+
+        <div class="form-group">
+          <label for="inputAddress">Address</label>
+          <input type="text" class="form-control" name="address" id="address" placeholder="1234 Main St" required>
+        </div>
+
+
+          <div class="form-group">
+            <label for="inputState">District</label>
+            <select name="city" id="city" class="form-control" required>
+              <option value="choose">Choose...</option>
+              <option value="Ariyalur">Ariyalur</option>
+              <option value="Chengalpattu">Chengalpattu</option>
+              <option value="Chennai">Chennai</option>
+              <option value="Coimbatore">Coimbatore</option>
+              <option value="Cuddalore">Cuddalore</option>
+              <option value="Dharmapuri">Dharmapuri</option>
+              <option value="Dindigul">Dindigul</option>
+              <option value="Erode">Erode</option>
+              <option value="Kallakurichi">Kallakurichi</option>
+              <option value="Kanchipuram">Kanchipuram</option>
+              <option value="Kanyakumari">Kanyakumari</option>
+              <option value="Karur">Karur</option>
+              <option value="Krishnagiri">Krishnagiri</option>
+              <option value="Madurai">Madurai</option>
+              <option value="Nagapattinam">Nagapattinam</option>
+              <option value="Namakkal">Namakkal</option>
+              <option value="Nilgiris">Nilgiris</option>
+              <option value="Perambalur">Perambalur</option>
+              <option value="Pudukottai">Pudukottai</option>
+              <option value="Ramanathapuram">Ramanathapuram</option>
+              <option value="Ranipet">Ranipet</option>
+              <option value="Salem">Salem</option>
+              <option value="Sivagangai">Sivagangai</option>
+              <option value="Tenkasi">Tenkasi</option>
+              <option value="Thanjavur">Thanjavur</option>
+              <option value="Theni">Theni</option>
+              <option value="Thoothukudi">Thoothukudi</option>
+              <option value="Tiruchirapalli">Tiruchirapalli</option>
+              <option value="Tirunelveli">Tirunelveli</option>
+              <option value="Tirupathur">Tirupathur</option>
+              <option value="Tiruppur">Tiruppur</option>
+              <option value="Tiruvallur">Tiruvallur</option>
+              <option value="Tiruvannamalai">Tiruvannamalai</option>
+              <option value="Tiruvarur">Tiruvarur</option>
+              <option value="Vellore">Vellore</option>
+              <option value="Villupuram">Villupuram</option>
+              <option value="Virudhunagar">Virudhunagar</option>
+        
+            </select>
+          </div>
+        <div class="form-group">
+            <label for="forZip">Pincode</label>
+            <input type="number" class="form-control" name="zip" id="zip" maxLength='12' required>
+        </div>
+        <div class="form-group">
+          <label for="utubelink">Youtube video link (optional)</label>
+          <input type="url"  placeholder="" id="utubelink" name="utubelink" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label for="category">Category</label>
+          <select name="categ" id="categ" class="form-control" required>
+
+            <option value="Character artist">Character artist</option>
+            <option value="Female artist">Female artist</option>
+            <option value="Male artist">Male artist</option>
+            <option value="Transgender artist">Transgender artist</option>
+            <option value="Male model">Male model</option>
+            <option value="Male model">Female model</option>
+            <option value="Choreographer">Choreographer</option>
+            <option value="Costume desginer">Costume desginer</option>
+            <option value="Make-up artist">Make-up artist</option>
+            <option value="Production manager">Production manager</option>
+            <option value="Story board artist">Story board artist</option>
+            <option value="Stunt director">Stunt director</option>
+            <option value="Art diretor">Art director</option>
+            <option value="Cinematographers">Cinematographers</option>
+            <option value="Editors">Editors</option>
+            <option value="Music director">Music director</option>
+            <option value="Photographer">Photographer</option>
+            <option value="Poster designer">Poster designer</option>
+            <option value="Sound engineers">Sound engineers</option>
+            <option value="VFX">VFX</option>
+            <option value="Dubbing artist">Dubbing artist</option>
+            <option value="RJ">RJ</option>
+            <option value="Singer">Singer</option>
+            <option value="Voie-over artist">Voie-over artist</option>
+            <option value="Dialouge writers">Dialouge writers</option>
+            <option value="Lyric writers">Lyric writers</option>
+            <option value="Sreenplay writers">Sreenplay writers</option>
+            <option value="Subtitle writers">Subtitle writers</option>
+            <option value="Vendor">Vendor</option>
+            <option value="PRO's">PRO's</option>
+            <option value="Producer">Producer</option>
+            <option value="VJ">VJ</option>
+            <option value="Story board">Story board</option>
+            <option value="Foley">Foley</option>
+            <option value="Dolly">Dolly</option>
+            <option value="DI">DI</option>
+            <option value="Sync sound">Sync sound</option>
+            <option value="Assistant director">Assistant director</option>
+            <option value="Child artist">Child artist</option>
+            <option value="Associate director">Associate director</option>
+            <option value="Assistant art director">Assistant art director</option>
+            <option value="Assistant cinematographer">Assistant cinematographer</option>
+            <option value="Assistant costume designers">Assistant costume designers</option>
+            <option value="Movie reviewers">Movie reviewers</option>
+            <option value="Guest">Guest</option>
+            <option value="Movie promoters">Movie promoters</option>
+      
+
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="profilePhoto">Select profile pic (Only your photo)</label>                  
+          <input type="file" id="profilePhoto" name="profilePhoto" class="form-control-file" required>
+        </div>
+
+        <div class="form-group">
+          <label for="otherph">Other photo</label>
+          <input type="file" class = 'otherPhoto' name="otherPhoto" class="form-control-file" required>
+        </div>
+
+        <div class="form-group">
+          <label for="otherph">Other photo</label>
+          <input type="file" class = 'otherPhoto' name="otherPhoto" class="form-control-file" >
+        </div>
+
+        <div class="form-group">
+          <label for="otherph">Other photo</label>
+          <input type="file" class='otherPhoto'  name="otherPhoto" class="form-control-file" >
+        </div>
+
+        <label for="othervideo">Other video</label>
+        <input type="file" id="video" name="video" class="form-control-file">
+
+        <div class="form-group">
+          <div class="form-check">
+     
+
+          </div>
+        </div>
+        <button type="submit" class="btn btn-success" id='submit'>Sign Up</button>
+
+        <div class="container signin">
+          <p class="text-center">Already have an account? <a href="/login">Log in</a></p>
+        </div>
+
+      </form>
+      </div>
+    </div>
+</div>
+</div>  
+<script src='/st/f/j/signup.js'>
+</script>
