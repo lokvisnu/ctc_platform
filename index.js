@@ -177,14 +177,14 @@ app.get('/about',(req,res)=>{
     if(req.session.UserId){
         Logged = true;
     }
-    res.render('about',{title:'About - Cenima Thalam Creations',about:'active',notLog:Logged});
+    res.render('about',{title:'About - Cinema Thalam Creations',about:'active',notLog:Logged});
 })
 app.get('/whyctc',(req,res)=>{
     var Logged = false
     if(req.session.UserId){
         Logged = true;
     }
-    res.render('whyctc',{title:'Why Cenima Thalam Creations',whyctc:'active',notLog:Logged});
+    res.render('whyctc',{title:'Why Cinema Thalam Creations',whyctc:'active',notLog:Logged});
 })
 app.get('/logout',(req,res)=>{
     req.session.destroy(function(err) {

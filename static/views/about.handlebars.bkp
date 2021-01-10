@@ -1,0 +1,27 @@
+    <style>
+        /* START : Footer */
+.full-footer{
+  background-color: #243c4f;
+  
+}
+.top-footer p{
+  color: white;
+}
+.top-footer a{
+  color: white;
+  font-weight: 600;
+}
+.top-footer{
+  color: white;
+}
+.bottom-footer{
+  background-color: #031b2e;
+}
+.bottom-footer p{
+  color: white;
+}
+
+/* END : Footer */
+    </style>
+    <hr class="my-2">
+<img src="/st/f/img/about.jpg" class="img-fluid" alt="Responsive image">
