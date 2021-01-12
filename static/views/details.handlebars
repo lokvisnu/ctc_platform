@@ -96,30 +96,26 @@ end content-->
               <div class="col-md-6">
                 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                     <ol class="carousel-indicators">
-                      <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                      <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                      <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                      <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
-                      <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
+                      {{#each otherPhoto}}
+                        <li data-target="#carouselExampleIndicators" data-slide-to={{@index}}></li>
+                      {{/each}}
                     </ol>
                     <div class="carousel-inner">
-                        <div class="carousel-item  active">
-                           <img class="d-block w-100" src="{{profilePhoto}}" alt="First slide">
-                        </div>
                         {{#each otherPhoto}}
-                          <div class="carousel-item">
+                          <div class="carousel-item {{#unless @index}}active{{/unless}}">
                             <img class="d-block w-100" src="{{this}}" alt="First slide">
                           </div>
                         {{/each}}
-                      <div class="carousel-item">
                         {{#if video}}
-                          <video controls>
-                          <source src='{{video}}' type="video/mp4">
-                          <source src='{{video}}' type="video/org">
-                          Your browser does not support HTML video.
-                          </video>
+                         <div class="carousel-item"></div>
+                            <video controls>
+                              <source src='{{video}}' type="video/mp4">
+                              <source src='{{video}}' type="video/org">
+                              Your browser does not support HTML video.
+                            </video>
+                          </div>
                         {{/if}}
-                     </div>
+                     
                     </div>
                     <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -158,16 +154,3 @@ end content-->
 <script src='/st/f/j/details.js'>
 
 </script>
-<!--Start of Tawk.to Script-->
-<script type="text/javascript">
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/5ffda3f9c31c9117cb6dd48d/1errch303';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();
-</script>
-<!--End of Tawk.to Script-->
