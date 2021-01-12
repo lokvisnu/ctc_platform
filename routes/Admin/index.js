@@ -72,7 +72,27 @@ router.get('/ctc/lo/logout',ChechADMIN,(req,res)=>
 });
 router.get('/ctc/lo',(req,res)=>
 {
+    console.log("ADMIN LOGGED:")
     res.render('admin_login');
+})
+router.post('/ctc/users/spaid',ChechADMIN,(req,res)=>
+{
+    var list_id = req.query.i;
+    console.log(req.query)
+    if(list_id){
+        Users.updateOne({list_id:list_id},{IsPayed:true,IsRenewed:true,lastPayed:GetDate()})
+        .then((result)=>
+        {
+            console.log("Set Paid True: For Ref No => "+list_id);
+            res.redirect(`${gv.INSTA_MOJO_REDIRECT_URL}/Admin/p/s/${list_id}`)
+        })
+        .catch((err)=>
+        {
+            console.log("Error Setting Paid True For Ref No: " + list_id)
+            res.send("Error: Somwthing Went Wrong")
+            console.log(err)
+        })
+    }
 })
 router.post('/ctc/a/l/post',(req,res)=>{
     //console.log(req.body)
@@ -82,10 +102,14 @@ router.post('/ctc/a/l/post',(req,res)=>{
         //console.log('Admin Login');
         var ADMIN_SESSION = (shortid.generate() + Date.now()).toString();
         req.session.ADMIN = ADMIN_SESSION;
-        CPANEL.update({_id:gv.CPANEL},{$addToSet:{session:ADMIN_SESSION}},(err,docs)=>{
+        CPANEL.updateOne({_id:gv.CPANEL},{$addToSet:{session:ADMIN_SESSION}},(err,docs)=>{
            // console.log(docs);
             if(!err)
+            {
+                console.log("ADMIN LOGGED")
+                console.log(docs);
                 res.redirect(`${gv.INSTA_MOJO_REDIRECT_URL}/Admin/p/s`);
+            }
             else
             console.log(err)
         });
@@ -152,4 +176,9 @@ function Crypto_Decrypt(e)
     //console.log(mystr); 
     return mystr;
 }
+function GetDate(){
+    var nowDate = new Date(); 
+    var date = nowDate.getFullYear()+'-'+(nowDate.getMonth()+1)+'-'+nowDate.getDate(); 
+    return date;
+  }
 module.exports = router;
