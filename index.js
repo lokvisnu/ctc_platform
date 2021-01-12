@@ -79,43 +79,16 @@ app.use((req,res,next)=>
     next();
 })
 //</Middle-Ware/>
-
-
-//<Home , Login , Signup>
-//<Artists>
-app.get('/artists',perm.LoggedCheck,perm.PayCheck,perm.RenewCheck,(req,res)=>
+function UserLogged(req)
 {
-    var Logged = false
-    if(req.session.UserId){
-        Logged = true;
-    }
-   // console.log("Logged ; "+Logged);
-    var c= req.query.c;
-    var p= req.query.p;
-    //console.log(req.query)
-    var options = {IsPayed:true,IsRenewed:true,active:true};
-    (c!=null&&c!=''&&p!=undefined)? options.categ=c.toLowerCase():null/*console.log("No Category Mentioned in request")*/;
-    (p!=null&&p!=''&&p!=undefined)? options.city=p.toLowerCase():null/*console.log("No City Mentioned in request")*/;
-    //console.log(options)
-        Users.find(options).select(['name','categ','profilePhoto','list_id','city']).lean().exec().then((docs)=>
-        {
-            var renderArray = docs.map((i,index,array)=>{
-                i.link = `${gv.INSTA_MOJO_REDIRECT_URL}/artist/${i.list_id}`
-                return i;
-            })
-            //console.log(renderArray)
-            res.render('category',{title:'Artists',item:renderArray,artists:'active',notLog:Logged});
-        })
-    
-});
-function UserLogged(){
     return new Promise((res,rej)=>
     {
+        console.log(req.session.UserId)
         if(req.session.UserId)
         {
             Users.find({id:req.session.UserId.toString()},(err,result)=>
             {
-                if(!err&&result&&result.length>0)
+                if(!err&&result.length!=0)
                     res();
                 else
                     rej();
@@ -125,62 +98,190 @@ function UserLogged(){
             rej();
     })
 }
+
+//<Home , Login , Signup>
+//<Artists>
+app.get('/artists',perm.LoggedCheck,perm.PayCheck,perm.RenewCheck,(req,res)=>
+{
+    var Logged = false
+    UserLogged(req)
+    .then(()=>
+    {
+        Logged=true;
+        render();
+    })
+    .catch(()=>
+    {
+        Logged=false;
+        render();
+    })
+   // console.log("Logged ; "+Logged);
+    var c= req.query.c;
+    var p= req.query.p;
+    var date = new Date();
+    //console.log(req.query)
+    function render()
+    {
+        var options = 
+        {
+            IsPayed:true,
+            IsRenewed:true,
+            active:true,
+            expDate:
+            {
+                $gte:date
+            }
+        };
+        (c!=null&&c!=''&&p!=undefined)? options.categ=c.toLowerCase():null/*console.log("No Category Mentioned in request")*/;
+        (p!=null&&p!=''&&p!=undefined)? options.city=p.toLowerCase():null/*console.log("No City Mentioned in request")*/;
+        //console.log(options)
+        Users.find(options).select(['name','categ','profilePhoto','list_id','city']).lean().exec().then((docs)=>
+        {
+            var renderArray = docs.map((i,index,array)=>{
+                i.link = `${gv.INSTA_MOJO_REDIRECT_URL}/artist/${i.list_id}`
+                return i;
+            })
+            //console.log(renderArray)
+            res.render('category',{title:'Artists',item:renderArray,artists:'active',notLog:Logged});
+        })
+    }
+    
+    
+});
+
 app.get('/artist/:list_id',perm.LoggedCheck,perm.PayCheck,perm.RenewCheck,(req,res)=>{
     var Logged = false
-    UserLogged()
-    .then(()=>Logged=true)
-    .catch(()=>Logged=false)
+    UserLogged(req)
+    .then(()=>
+    {
+        Logged=true
+        render();
+    })
+    .catch(()=>
+    {
+        Logged=false
+        render();
+    })
     //console.log("Logged ; "+Logged);
    // console.log(req.params.list_id)
-    Users.find({list_id:req.params.list_id},
-['list_id','height','weight','bloodgrp','name','exp','utubelink','profilePhoto','otherPhoto','video','techqualification','qualification','city','sex','categ','age','dob','zip','active','IsRenewed','IsPayed'])
-    .then((docs)=>{
-        //console.log(docs)
-        if(docs)
+   function render()
+   {
+    var date = new Date();
+    Users.find(
         {
-            if(docs[0].IsPayed==true&&docs[0].IsRenewed==true&&docs[0].active==true)
+            list_id:req.params.list_id,
+            expDate:
             {
-                docs[0].title = docs[0].name;
-                docs[0].artists = 'active';
-                docs[0].notLog=Logged;
-            /* docs[0].city = capitalize(docs[0].city)
-                docs[0].categ = capitalize(docs[0].categ)*/
-                res.render('details',docs[0]);
+                $gte:date
             }
-            else
+        },
+        ['list_id','height','weight','bloodgrp','name','exp','utubelink','profilePhoto','otherPhoto','video','techqualification','qualification','city','sex','categ','age','dob','zip','active','IsRenewed','IsPayed'])
+            .then((docs)=>{
+                //console.log(docs)
+                if(docs)
+                {
+                    if(docs[0].IsPayed==true&&docs[0].IsRenewed==true&&docs[0].active==true)
+                    {
+                        docs[0].title = docs[0].name;
+                        docs[0].artists = 'active';
+                        docs[0].notLog=Logged;
+                        docs[0].otherPhoto.push(docs[0].profilePhoto)
+                    /* docs[0].city = capitalize(docs[0].city)
+                        docs[0].categ = capitalize(docs[0].categ)*/
+                        res.render('details',docs[0]);
+                    }
+                    else
+                    {
+                        errhandle.reportErr(req,res,'404')
+                    }
+                }
+                else
+                {
+                    //errhandle.reportErr(req,res,'404')
+                    console.log(docs[0].expDate)
+                }
+            })
+            .catch((err)=>
             {
+                console.log(err);
                 errhandle.reportErr(req,res,'404')
-            }
-        }
-        else
-        {
-            errhandle.reportErr(req,res,'404')
-        }
-    })
-    .catch((err)=>{
-        console.log(err);
-        errhandle.reportErr(req,res,'404')
-    })
+            })
+   }
+    
 })
 //</Artists>
 app.get(['/','/home*'],(req,res)=>
 {
-    var Logged = false
-    UserLogged()
-    .then(()=>Logged=true)
-    .catch(()=>Logged=false)
+    var Logged = true;
+    UserLogged(req)
+    .then(()=>
+    {
+        Logged=true;
+        render(true)
+    })
+    .catch(()=>
+    {
+        Logged=false
+        render(true)
+    })
    //console.log("Logged ; "+Logged);
-    res.status(200);
-    res.render('home',{title:'Cinema Thalam Creations',home:'active',notLog:Logged});
+   function render(r)
+   {
+       if(r)
+       {
+        res.status(200);
+        res.render('home',{title:'Cinema Thalam Creations',home:'active',notLog:Logged});
+       }
+   }
+    
 
 })
 app.get('/contact',(req,res)=>{
     var Logged = false
-    UserLogged()
-    .then(()=>Logged=true)
-    .catch(()=>Logged=false)
-    res.render('contactus',{title:'Countact Us - Cinema Thalam Creations',contact:'active',notLog:Logged});
+    UserLogged(req)
+    .then(()=>
+    {
+        Logged=true;
+        render();
+    })
+    .catch(()=>
+    {
+        Logged=false
+        render();
+    })
+    function render()
+    {
+        res.render('contactus',{title:'Countact Us - Cinema Thalam Creations',contact:'active',notLog:Logged});
+    }
 })
+app.get('/renew',perm.LoggedCheck,perm.RenewCheck,(req,res)=>
+{
+    var Logged = false;
+    UserLogged(req)
+    .then(()=>
+    {
+        Logged=true;
+        render();
+    })
+    .catch(()=>
+    {
+        Logged=false
+        render();
+    })
+    function render(){
+        Users.find({id:req.session.UserId})
+        .then((docs)=>
+        {
+            var nowDate = docs[0].expDate;
+            var dt = nowDate.getDate()+'/'+(nowDate.getMonth()+1)+'/'+nowDate.getFullYear(); 
+            res.render('paid',{Exp:dt,title:"Renewal",renew:'active',notLog:Logged})
+        })
+        .catch(err=>
+        {
+            console.log(err);
+        })
+    }
+});
 app.get('/login',perm.LoginCheck,(req,res)=>
 {
     
@@ -192,17 +293,41 @@ app.get('/signup',perm.LoginCheck,(req,res)=>
 })
 app.get('/about',(req,res)=>{
     var Logged = false
-    UserLogged()
-    .then(()=>Logged=true)
-    .catch(()=>Logged=false)
-    res.render('about',{title:'About - Cinema Thalam Creations',about:'active',notLog:Logged});
+    UserLogged(req)
+    .then(()=>
+    {
+        Logged=true;
+        render();
+    })
+    .catch(()=>
+    {
+        Logged=false
+        render();
+    })
+    function render()
+    {
+        res.render('about',{title:'About - Cinema Thalam Creations',about:'active',notLog:Logged});
+    }
+    
 })
 app.get('/whyctc',(req,res)=>{
     var Logged = false
-    UserLogged()
-    .then(()=>Logged=true)
-    .catch(()=>Logged=false)
-    res.render('whyctc',{title:'Why Cinema Thalam Creations',whyctc:'active',notLog:Logged});
+    UserLogged(req)
+    .then(()=>
+    {
+        Logged=true;
+        render();
+    })
+    .catch(()=>
+    {
+        Logged=false
+        render();
+    })
+    function render()
+    {
+        res.render('whyctc',{title:'Why Cinema Thalam Creations',whyctc:'active',notLog:Logged});
+    }
+    
 })
 app.get('/logout',(req,res)=>{
     req.session.destroy(function(err) 
