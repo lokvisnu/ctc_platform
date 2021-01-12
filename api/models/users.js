@@ -83,6 +83,9 @@ const UserSchems = mongoose.Schema
     active:{
         type:Boolean,
         default:true
+    },
+    expDate:{
+        type:Date
     }
 })
 UserSchems.pre('save', function (next) {
@@ -91,7 +94,7 @@ UserSchems.pre('save', function (next) {
         if (!docs.length){
             next();
         }else{                
-            console.log('user exists: ',self.email);
+            console.log('User Exists: ',self.email);
             next(new Error("2"));
         }
     });
