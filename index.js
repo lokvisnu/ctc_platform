@@ -17,7 +17,8 @@ const mongoose = require('mongoose');
 const Users = require('./api/models/users');
 const { CheckLoged } = require('./modules/serverErrorHandling');
 const gv  = require('./modules/globalVariables')
-const cpanel = require('./api/models/cpanel')
+const cpanel = require('./api/models/cpanel');
+const { resolve } = require('path');
 //</Libraries and Modules>
 //<Global Variables>
 //<Middle-Ware>
@@ -107,11 +108,28 @@ app.get('/artists',perm.LoggedCheck,perm.PayCheck,perm.RenewCheck,(req,res)=>
         })
     
 });
+function UserLogged(){
+    return new Promise((res,rej)=>
+    {
+        if(req.session.UserId)
+        {
+            Users.find({id:req.session.UserId.toString()},(err,result)=>
+            {
+                if(!err&&result&&result.length>0)
+                    res();
+                else
+                    rej();
+            })
+        }
+        else
+            rej();
+    })
+}
 app.get('/artist/:list_id',perm.LoggedCheck,perm.PayCheck,perm.RenewCheck,(req,res)=>{
     var Logged = false
-    if(req.session.UserId){
-        Logged = true;
-    };
+    UserLogged()
+    .then(()=>Logged=true)
+    .catch(()=>Logged=false)
     //console.log("Logged ; "+Logged);
    // console.log(req.params.list_id)
     Users.find({list_id:req.params.list_id},
@@ -148,9 +166,9 @@ app.get('/artist/:list_id',perm.LoggedCheck,perm.PayCheck,perm.RenewCheck,(req,r
 app.get(['/','/home*'],(req,res)=>
 {
     var Logged = false
-    if(req.session.UserId){
-        Logged = true;
-    }
+    UserLogged()
+    .then(()=>Logged=true)
+    .catch(()=>Logged=false)
    //console.log("Logged ; "+Logged);
     res.status(200);
     res.render('home',{title:'Cinema Thalam Creations',home:'active',notLog:Logged});
@@ -158,9 +176,9 @@ app.get(['/','/home*'],(req,res)=>
 })
 app.get('/contact',(req,res)=>{
     var Logged = false
-    if(req.session.UserId){
-        Logged = true;
-    }
+    UserLogged()
+    .then(()=>Logged=true)
+    .catch(()=>Logged=false)
     res.render('contactus',{title:'Countact Us - Cinema Thalam Creations',contact:'active',notLog:Logged});
 })
 app.get('/login',perm.LoginCheck,(req,res)=>
@@ -174,23 +192,36 @@ app.get('/signup',perm.LoginCheck,(req,res)=>
 })
 app.get('/about',(req,res)=>{
     var Logged = false
-    if(req.session.UserId){
-        Logged = true;
-    }
+    UserLogged()
+    .then(()=>Logged=true)
+    .catch(()=>Logged=false)
     res.render('about',{title:'About - Cinema Thalam Creations',about:'active',notLog:Logged});
 })
 app.get('/whyctc',(req,res)=>{
     var Logged = false
-    if(req.session.UserId){
-        Logged = true;
-    }
+    UserLogged()
+    .then(()=>Logged=true)
+    .catch(()=>Logged=false)
     res.render('whyctc',{title:'Why Cinema Thalam Creations',whyctc:'active',notLog:Logged});
 })
 app.get('/logout',(req,res)=>{
-    req.session.destroy(function(err) {
-        req.session = null;
-        res.redirect(`${gv.INSTA_MOJO_REDIRECT_URL}/home`);
-      })
+    req.session.destroy(function(err) 
+    {
+        if(!err)
+        {
+            req.session = null;
+            res.redirect(`${gv.INSTA_MOJO_REDIRECT_URL}/home`);
+        }
+        else
+        {
+            req.session.UserId = null;
+            req.session = null;
+            req.session.is = null;
+            req.session = {};
+            res.redirect(`${gv.INSTA_MOJO_REDIRECT_URL}/home`);
+        }
+        
+    })
     
 })
 //</Home , Login , Signup>
