@@ -42,8 +42,8 @@
           <p class="card-text lead">District: <span style='text-transform:capitalize'>{{city}}</span></p>
           <p class="card-text lead">ZIP: {{zip}}</p>
           <br>
-          <p class="card-text lead">PAYMENT STATUS:{{#if IsPayed}}<span style="color: green;">PAYED</span> {{else}}<span style="color: green;"> NOT PAYED </span>{{/if}}</p>
-          <p class="card-text lead">ACCOUNT STATUS {{#if active}}<span style="color: green;">ACTIVE</span> {{else}}<span style="color: green;"> NOT ACTIVE </span>{{/if}}</p>
+          <p class="card-text lead">PAYMENT STATUS:{{#if IsPayed}}<span style="color: green;">PAID</span> {{else}}<span style="color: red;"> NOT PAID <form method="post" id='pay'action='/Admin/ctc/users/spaid?i={{list_id}}'><input type="submit" value='SET PAID'></form></span>{{/if}}</p>
+          <p class="card-text lead">ACCOUNT STATUS {{#if active}}<span style="color: green;">ACTIVE</span> {{else}}<span style="color:red;"> NOT ACTIVE </span>{{/if}}</p>
           <br>
             {{#if payment}}
                 <h1>PAYMENT HISTORY</h1>
@@ -72,3 +72,4 @@
 </div>
     
 </div>
+<script src='/st/f/j/ad.js'
