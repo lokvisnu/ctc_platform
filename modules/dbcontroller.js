@@ -35,7 +35,7 @@ controller.IfPassCorrect = (obj,req)=>
           {
             req.session.is = docs[0].IsPayed;
             req.session.UserId = docs[0].id;
-            console.log(docs[0].email +" Logged")
+            console.log(docs[0].email +" Logged","Id: ",docs[0].id)
             resolve(docs[0].id);
           }
           else
@@ -66,6 +66,10 @@ controller.AddNewUser = (obj,req)=>{
       var hashedAadhar = Crypto_Encrypt(aadhar) ;
       var hashedPh = Crypto_Encrypt(phno);
       var hashedAddress = Crypto_Encrypt(address);
+      //<Exp Date>
+      var dt = new Date();
+      var ExpDate = new Date(dt.setMonth(dt.getMonth() + 12));
+      //</Exp Date>
       var id = (shortid.generate().toString()+id.toString())
       var video = ''
       if(req.files['video'])
@@ -101,9 +105,10 @@ controller.AddNewUser = (obj,req)=>{
           otherPhoto:otherPhoto,
           nationality:nationality,
           city:city.toLowerCase(),
-          utubelink:utubelink
-          ,video: video,
+          utubelink:utubelink,
+          video: video,
           zip:zip
+          //exp_date:ExpDate
         }
       )
       user.save()
@@ -158,7 +163,8 @@ controller.AddNewUser = (obj,req)=>{
     return dateTo.getMonth() - dateFrom.getMonth() + 
       (12 * (dateTo.getFullYear() - dateFrom.getFullYear()))
    }
-function GetDate(){
+function GetDate()
+{
   var nowDate = new Date(); 
   var date = nowDate.getFullYear()+'-'+(nowDate.getMonth()+1)+'-'+nowDate.getDate(); 
   return date;

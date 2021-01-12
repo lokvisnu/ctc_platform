@@ -14,12 +14,16 @@ module.exports = {
     else
         errhandle.reportErr(req,res,405);
 },
- LoginCheck:(req,res,next) =>{
+ LoginCheck:(req,res,next) =>
+ {
     if(errhandle.CheckLoged(req,res)==false)
+    {
+      //Not Logged
+      req.session.UserId = null;
       next();
+    }
     else
     {
-      req.session.UserId = null;
       res.redirect(`${gv.INSTA_MOJO_REDIRECT_URL}/home`)
     }
 },
@@ -53,9 +57,13 @@ PayCheck:(req,res,next) =>{
   })
     
 },
-RenewCheck:(req,res,next) =>{
-  Users.find({id:req.session.UserId},(err,docs)=>{
-    if(docs[0].IsRenewed == true)
+RenewCheck:(req,res,next) =>
+{
+  Users.find({id:req.session.UserId},(err,docs)=>
+  {
+    var exp = docs[0].expDate;
+    var today = new Date();
+    if(exp&&exp > today)
       next();
     else
       module.exports.RedirectPayment(req,req.session.UserId,'100',res,'Renewal Charges')

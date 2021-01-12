@@ -134,21 +134,28 @@ log.Validate_Update_Payment= async (obj,req,res)=>
                 }
                 if(UserResult[0].lastPayed==null||UserResult[0].lastPayed==undefined||monthpassed>=12)
                 {
-                    Users.updateOne({id:i},{IsPayed:true,IsRenewed:true,lastPayed:GetDate(),$addToSet:{
-                        payment:[
-                            {
-                                payment_id:payment_id,
-                                payment_request_id:payment_request_id,
-                                date:GetDate()
-                            }
-                        ]
-                    }})
+                    var dt = new Date();
+                    var ExpDate = new Date(dt.setMonth(dt.getMonth() + 12));
+                    Users.updateOne({id:i},
+                    {
+                        IsPayed:true,
+                        IsRenewed:true,
+                        lastPayed:GetDate(),
+                        $addToSet:
+                        {
+                            payment:[
+                                {
+                                    payment_id:payment_id,
+                                    payment_request_id:payment_request_id,
+                                    date:GetDate()
+                                }
+                            ]
+                        },
+                        expDate:ExpDate
+                    })
                     .then((result)=>{
-                        //console.log("Payment Successful");
-                        //console.log(result);
                         req.session.r = false;
                         req.session.UserId = i;
-                    // res.send("Payment Successful")
                         Pay_Id.deleteOne({id:i}).then(()=>res.redirect(`${gv.INSTA_MOJO_REDIRECT_URL}/artists`));
                                         
                     })
@@ -156,7 +163,6 @@ log.Validate_Update_Payment= async (obj,req,res)=>
                     {
                         console.log(err)
                         Pay_Id.deleteOne({id:i}).then(()=>res.redirect(`${gv.INSTA_MOJO_REDIRECT_URL}/home`));
-                        //res.redirect(`${gv.INSTA_MOJO_REDIRECT_URL}/home`);
                     });
                 }
                 else
@@ -217,7 +223,15 @@ function NotFree(id)
                 Cpanel.updateOne({_id:gv.CPANEL},{ $inc: { free: -1 } },(err,docs)=>{
                     if(!err)
                     {
-                        Users.update({id:id},{IsPayed:true,IsRenewed:true,lastPayed:GetDate()},(err,docs)=>
+                        var dt = new Date();
+                        var ExpDate = new Date(dt.setMonth(dt.getMonth() + 12));
+                        Users.update({id:id},
+                        {
+                            IsPayed:true,
+                            IsRenewed:true,
+                            lastPayed:GetDate(),
+                            expDate:ExpDate
+                        },(err,docs)=>
                         {
                             if(!err)
                             {
