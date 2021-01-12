@@ -35,14 +35,18 @@ controller.IfPassCorrect = (obj,req)=>
           {
             req.session.is = docs[0].IsPayed;
             req.session.UserId = docs[0].id;
-            //console.log("Login Successful")
-            resolve();
+            console.log(docs[0].email +" Logged")
+            resolve(docs[0].id);
           }
           else
+          {
+            console.log(docs[0].email +" Invalid Login Credentials")
             reject(1);
+          }
         }
         else
         {
+          console.log(docs[0].email +" Invalid Login Credentials")
           reject(1);
         }
       })
@@ -105,27 +109,41 @@ controller.AddNewUser = (obj,req)=>{
       user.save()
       .then((doc)=>
       {
-        console.log("ID Id Id Id ID" + doc.id)
+        //console.log("ID Id Id Id ID" + doc.id)
+        console.log("Account Created Successfully "+doc.email);
+        req.session.UserId = doc.id;
         resolve(doc.id);
-        console.log("Account Created Successfully");
       })
       .catch((error)=>
       {
-        console.log(error.message);
-        fs.unlink(path.join(__dirname,'../static/img/users/',req.files['profilePhoto'][0].filename),(err)=>console.log(err));
+        //console.log(error.message);
+        fs.unlink(path.join(__dirname,'../static/img/users/',req.files['profilePhoto'][0].filename),(err)=>
+        {
+          if(err)
+            console.log(err)
+        });
         req.files['otherPhoto'].forEach((i,index,array)=>
         {
-          console.log(i);
-          fs.unlink(path.join(__dirname,'../static/img/users/',i.filename),(err)=>console.log(err));
+          //console.log(i);
+          fs.unlink(path.join(__dirname,'../static/img/users/',i.filename),(err)=>{
+            if(err)
+              console.log(err)
+          });
         });
        // console.log(req.files['video'][0].filename);
        if(req.files['video'])
        {
           fs.unlink(path.join(__dirname,'../static/vd/',req.files['video'][0].filename),(err)=>
           {
-            console.log(err)
+            if(err)
+              console.log(err)
             reject(error.message)
           });
+       }
+       else
+       {
+          //console.log(err)
+        reject(error.message)
        }
     })
 

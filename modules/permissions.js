@@ -18,7 +18,10 @@ module.exports = {
     if(errhandle.CheckLoged(req,res)==false)
       next();
     else
+    {
+      req.session.UserId = null;
       res.redirect(`${gv.INSTA_MOJO_REDIRECT_URL}/home`)
+    }
 },
 LoginCheckPost:(req,res,next) =>{
     if(errhandle.CheckLoged(req,res)==false)

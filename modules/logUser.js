@@ -18,8 +18,9 @@ log.LoginUser = async (req,res)=>
     const {email,pass} = req.body;
     //onsole.log(req.body)
         dbcont.IfPassCorrect(req.body,req)
-        .then(()=>
+        .then((id)=>
         {
+            req.session.UserId = id;
             res.redirect('/artists');
         })
         .catch((code)=>
@@ -28,6 +29,7 @@ log.LoginUser = async (req,res)=>
             {
                 req.body.email ='';
             }
+            req.session.UserId = null;
             res.render('login',{error:'Invalid Email or Password',email:req.body.email})
         
         });
@@ -77,21 +79,19 @@ log.SignupUser = async (req,res)=>
                 paym.createPayment(data)
                 .then((response)=>
                 {
-                        //console.log(response)
                         req.session.is = true;
-                        //console.log("Redirect");
                         var resp = JSON.parse(response);
                         var redir = resp.payment_request.longurl;
-                        //console.log(redir);
                         res.redirect(redir);
                 })
                 .catch((err)=>
                 {
                     console.log(err)
-                    res.send("Payment Failed") 
+                    res.send("Payment Failed Please Try Again Later <br> Contact CTC If You Any Issue Rearding Payment") 
                 })
             })
-            .catch(()=>{
+            .catch(()=>
+            {
                 //console.log("Free Signup")
                 res.redirect(`${gv.INSTA_MOJO_REDIRECT_URL}/artists`);
             })
@@ -134,7 +134,7 @@ log.Validate_Update_Payment= async (obj,req,res)=>
                 }
                 if(UserResult[0].lastPayed==null||UserResult[0].lastPayed==undefined||monthpassed>=12)
                 {
-                    Users.update({id:i},{IsPayed:true,IsRenewed:true,lastPayed:GetDate(),$addToSet:{
+                    Users.updateOne({id:i},{IsPayed:true,IsRenewed:true,lastPayed:GetDate(),$addToSet:{
                         payment:[
                             {
                                 payment_id:payment_id,
@@ -214,14 +214,14 @@ function NotFree(id)
             //console.log("Docs : "+docs)
             if(!err&&docs[0].free>0)
             {
-                Cpanel.update({_id:gv.CPANEL},{ $inc: { free: -1 } },(err,docs)=>{
+                Cpanel.updateOne({_id:gv.CPANEL},{ $inc: { free: -1 } },(err,docs)=>{
                     if(!err)
                     {
                         Users.update({id:id},{IsPayed:true,IsRenewed:true,lastPayed:GetDate()},(err,docs)=>
                         {
                             if(!err)
                             {
-                                //console.log("Free Signup")
+                                console.log("Free Signup : "+docs.email)
                                 reject();
                             }
                             else
