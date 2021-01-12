@@ -79,8 +79,17 @@ router.post('/ctc/users/spaid',ChechADMIN,(req,res)=>
 {
     var list_id = req.query.i;
     console.log(req.query)
-    if(list_id){
-        Users.updateOne({list_id:list_id},{IsPayed:true,IsRenewed:true,lastPayed:GetDate()})
+    if(list_id)
+    {
+        var dt = new Date();
+        var ExpDate = new Date(dt.setMonth(dt.getMonth() + 12));
+        Users.updateOne({list_id:list_id},
+        {
+            IsPayed:true,
+            IsRenewed:true,
+            lastPayed:GetDate(),
+            expDate:ExpDate
+        })
         .then((result)=>
         {
             console.log("Set Paid True: For Ref No => "+list_id);
