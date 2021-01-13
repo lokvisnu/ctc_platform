@@ -31,7 +31,7 @@ LoginCheckPost:(req,res,next) =>{
     if(errhandle.CheckLoged(req,res)==false)
       next();
     else
-      res.redirect(`${gv.INSTA_MOJO_REDIRECT_URL}/home`)
+    res.redirect(`${gv.INSTA_MOJO_REDIRECT_URL}/home`)
 },
 LoggedCheck:(req,res,next) =>
 {
@@ -129,7 +129,7 @@ SignupValidate:(req,res,next)=>
     firstname:'Name',
     city:'District',
     email:'Email',
-    aadhar:'Aadhar',
+    //aadhar:'Aadhar',
     phno:'Phone Number',
     categ:'Catgeory',
     dob:'Date Of Birth',
