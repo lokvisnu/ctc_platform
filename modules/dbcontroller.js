@@ -25,7 +25,8 @@ controller.IfPassCorrect = (obj,req)=>
   var pass = obj.pass.trim();
   return new Promise((resolve,reject)=>
   {
-      UserSchema.find({email:email},function(err,docs){
+      UserSchema.find({email:email},function(err,docs)
+      {
 
         if(!err&&docs[0]!=null||docs[0]!=undefined)
         {
@@ -46,8 +47,8 @@ controller.IfPassCorrect = (obj,req)=>
         }
         else
         {
-            console.log(email +" Invalid Login Credentials")
-            reject(1);
+          console.log(email+" Invalid Login Credentials")
+          reject(1);
         }
       })
   })    
@@ -63,7 +64,7 @@ controller.AddNewUser = (obj,req)=>{
       id = id + parseInt(obj.phno);
       var hashedPass = Crypto_Encrypt(pass);//new
       //var hashedPass = bcrypt.hashSync(pass,8);//new
-      var hashedAadhar = Crypto_Encrypt(aadhar) ;
+      //var hashedAadhar = Crypto_Encrypt(aadhar) ;
       var hashedPh = Crypto_Encrypt(phno);
       var hashedAddress = Crypto_Encrypt(address);
       //<Exp Date>
@@ -84,7 +85,7 @@ controller.AddNewUser = (obj,req)=>{
           list_id:mongoose.Types.ObjectId(),
           name:name,
           categ:categ.toLowerCase(),
-          aadhar:hashedAadhar,
+          //aadhar:hashedAadhar,
           email:email,
           pass:hashedPass,
           phno:hashedPh,
