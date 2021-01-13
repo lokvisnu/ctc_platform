@@ -400,6 +400,9 @@ app.get('/st/f/:ext/:file',(req,res)=>
  app.use(['/u'],require('./routes/login_signup/index.js'))
  app.use(['/Admin'],require('./routes/Admin/index.js'))
 //</Special Routes>
+ app.get('*',(req,res)=>{
+    errhandle.reportErr(res,res,404);
+ })
 var port = '3000';
 var hostname ='0.0.0.0';
 http.createServer(app).listen(port, hostname, () => {
