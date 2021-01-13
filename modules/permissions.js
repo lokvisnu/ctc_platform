@@ -31,7 +31,7 @@ LoginCheckPost:(req,res,next) =>{
     if(errhandle.CheckLoged(req,res)==false)
       next();
     else
-      res.send(`Cannot POST ${req.path}`)
+      res.redirect(`${gv.INSTA_MOJO_REDIRECT_URL}/home`)
 },
 LoggedCheck:(req,res,next) =>
 {
