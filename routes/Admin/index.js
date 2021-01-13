@@ -16,21 +16,24 @@ const CPANEL = require('../../api/models/cpanel')
 function ChechADMIN(req,res,next)
 {
     var admin = req.session.ADMIN;
-    if(admin!=null&&admin!=undefined&&admin!='')
+    if(admin!=null||admin!=undefined||admin!='')
     {
         CPANEL.find({_id:gv.CPANEL},(err,docs)=>{
-            if(!err){
+            if(!err)
+            {
                 //console.log(docs)
                 var session = docs[0].session;
-                if(session.includes(admin)){
+                if(session.includes(admin))
+                {
                     next();
                 }
-                else{
+                else
+                {
                     errHandle.reportErr(req,res,'404')
-
                 }
             }
-            else{
+            else
+            {
                 errHandle.reportErr(req,res,'404')
             }
         })
@@ -40,11 +43,11 @@ function ChechADMIN(req,res,next)
     }
 }
 router.get('/',(req,res)=>
-{
-    
+{  
     errHandle.reportErr(req,res,'404')
 })
-router.get('/p/s',ChechADMIN,(req,res)=>{
+router.get('/p/s',ChechADMIN,(req,res)=>
+{
     res.render('admin_search')
 })
 router.get('/ctc/lo/logout',ChechADMIN,(req,res)=>
@@ -135,10 +138,10 @@ router.get('/p/s/:id',ChechADMIN,(req,res)=>
         Users.find(({list_id:req.params.id}),(err,docs)=>{
             if(!err&&docs&&docs!=null)
             {
-                var aadhar = Crypto_Decrypt(docs[0].aadhar);
+                //var aadhar = Crypto_Decrypt(docs[0].aadhar);
                 var phno = Crypto_Decrypt(docs[0].phno)
                 var address = Crypto_Decrypt(docs[0].address)
-                docs[0].aadhar = aadhar;
+               // docs[0].aadhar = aadhar;
                 docs[0].phno = phno;
                 docs[0].address = address;
                 var nowDate = docs[0].expDate;
