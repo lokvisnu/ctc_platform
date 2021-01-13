@@ -40,14 +40,14 @@ controller.IfPassCorrect = (obj,req)=>
           }
           else
           {
-            console.log(docs[0].email +" Invalid Login Credentials")
+            console.log(email +" Invalid Login Credentials")
             reject(1);
           }
         }
         else
         {
-          console.log(docs[0].email +" Invalid Login Credentials")
-          reject(1);
+            console.log(email +" Invalid Login Credentials")
+            reject(1);
         }
       })
   })    
