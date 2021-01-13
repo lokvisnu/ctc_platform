@@ -288,9 +288,9 @@ app.get('/login',perm.LoginCheck,(req,res)=>
     var email = req.query.e;
     var err = '';
     if(req.query.r)
-        err = gv.code_message[req.query.r];
-
-    res.render('login',{title:'Login',login:'active',error:"Invalid Email or Password",email:email});
+        err = "Invalid Email or Password";
+    //req.query = null;
+    res.render('login',{title:'Login',login:'active',error:err,email:email});
 })
 app.get('/signup',perm.LoginCheck,(req,res)=>
 {
