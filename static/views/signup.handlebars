@@ -33,7 +33,7 @@
         <div class="form-group">
           <h4 class = 'err' id='err' style="color: red;font-family:Arial, Helvetica, sans-serif;">{{error}}</h4>
           <label for="inputAddress">Name</label>
-          <input type="text" class="form-control" name="firstname" id="firstname" placeholder="Enter your name" required>
+          <input type="text" class="form-control" name="firstname" id="firstname" placeholder="Enter your name">
         </div>
         <div class="form-group">
           <label for="dob">Date of birth</label>
@@ -41,16 +41,16 @@
         </div>
         <div class="form-group">
           <label for="age">Age</label>
-          <input type="number" placeholder="Your age" name="age" id="age" min="1" max="100" class="form-control" required>
+          <input type="number" placeholder="Your age" name="age" id="age" min="1" max="100" class="form-control">
         </div>
          <div class="form-row">
           <div class="form-group col-md-6">
             <label for="inputEmail4">Height(in cm)</label>
-            <input type="number" class="form-control" name="height" id="height" placeholder="Height" required>
+            <input type="number" class="form-control" name="height" id="height" placeholder="Height">
           </div>
           <div class="form-group col-md-6">
             <label for="inputPassword4">Weight(in kg) </label>
-            <input type="number" class="form-control" name="weight" id="weight" placeholder="weight" required>
+            <input type="number" class="form-control" name="weight" id="weight" placeholder="weight">
           </div>
         </div>
         <div class="form-group">
@@ -64,7 +64,7 @@
         </div>
         <div class="form-group">
           <label for="bloodgrp">Bloodgroup</label>
-          <select name="bloodgrp" id="bloodgrp" class="form-control" required>
+          <select name="bloodgrp" id="bloodgrp" class="form-control">
           <option value="A+">A+</option>
           <option value="A-">A-</option>
           <option value="B+">B+</option>
@@ -102,10 +102,10 @@
             <input type="password" class="form-control" name="rePwd" id="rePwd" placeholder="Confirm Password(Re-enter Password)" required>
           </div>
         </div>
-        <div class="form-group">
+        <!--<div class="form-group">
             <label for="Aadhar">Aadhar</label>
             <input type="number" class="form-control" name="aadhar" id="aadhar" maxLength='12' required>
-          </div>
+          </div>-->
                <div class="form-group">
           <label for="phno">Phone Number</label>
           <input type="tel" id="phno" name="phno" placeholder="1234567890" class="form-control"   maxLength='10' required>
@@ -158,21 +158,6 @@
               <option value="Vellore">Vellore</option>
               <option value="Villupuram">Villupuram</option>
               <option value="Virudhunagar">Virudhunagar</option>
-              <option value="Thiruvananthapuram">Thiruvananthapuram</option>
-              <option value="Kollam">Kollam</option>
-              <option value="Alappuzha">Alappuzha</option>
-              <option value="Pathanamthitta">Pathanamthitta</option>
-              <option value="Kottayam">Kottayam</option>
-              <option value="Idukki">Idukki</option>
-              <option value="Ernakulam">Ernakulam</option>
-              <option value="Thrissur">Thrissur</option>
-              <option value="Palakkad">Palakkad</option>
-              <option value="Malappuram">Malappuram</option>
-              <option value="Kozhikode">Kozhikode</option>
-              <option value="Wayanad">Wayanad</option>
-              <option value="Kannur">Kannur</option>
-              <option value="Kasaragod">Kasaragod</option>
-
         
             </select>
           </div>
@@ -188,35 +173,35 @@
         <div class="form-group">
           <label for="category">Category</label>
           <select name="categ" id="categ" class="form-control" required>
-            <option value="Director">Director</option>
+
             <option value="Character artist">Character artist</option>
             <option value="Female artist">Female artist</option>
             <option value="Male artist">Male artist</option>
             <option value="Transgender artist">Transgender artist</option>
             <option value="Male model">Male model</option>
-            <option value="Female model">Female model</option>
+            <option value="Male model">Female model</option>
             <option value="Choreographer">Choreographer</option>
-            <option value="Costume designer">Costume designer</option>
+            <option value="Costume desginer">Costume desginer</option>
             <option value="Make-up artist">Make-up artist</option>
             <option value="Production manager">Production manager</option>
             <option value="Story board artist">Story board artist</option>
             <option value="Stunt director">Stunt director</option>
             <option value="Art diretor">Art director</option>
-            <option value="Cinematographers">Cinematographer</option>
-            <option value="Editors">Editor</option>
+            <option value="Cinematographers">Cinematographers</option>
+            <option value="Editors">Editors</option>
             <option value="Music director">Music director</option>
             <option value="Photographer">Photographer</option>
             <option value="Poster designer">Poster designer</option>
-            <option value="Sound engineers">Sound engineer</option>
+            <option value="Sound engineers">Sound engineers</option>
             <option value="VFX">VFX</option>
             <option value="Dubbing artist">Dubbing artist</option>
             <option value="RJ">RJ</option>
             <option value="Singer">Singer</option>
-            <option value="Voie-over artist">Voice-over artist</option>
-            <option value="Dialouge writers">Dialouge writer</option>
-            <option value="Lyric writers">Lyric writer</option>
-            <option value="Screenplay writers">Screenplay writer</option>
-            <option value="Subtitle writers">Subtitle writer</option>
+            <option value="Voie-over artist">Voie-over artist</option>
+            <option value="Dialouge writers">Dialouge writers</option>
+            <option value="Lyric writers">Lyric writers</option>
+            <option value="Sreenplay writers">Sreenplay writers</option>
+            <option value="Subtitle writers">Subtitle writers</option>
             <option value="Vendor">Vendor</option>
             <option value="PRO's">PRO's</option>
             <option value="Producer">Producer</option>
@@ -231,10 +216,10 @@
             <option value="Associate director">Associate director</option>
             <option value="Assistant art director">Assistant art director</option>
             <option value="Assistant cinematographer">Assistant cinematographer</option>
-            <option value="Assistant costume designers">Assistant costume designer</option>
-            <option value="Movie reviewers">Movie reviewer</option>
+            <option value="Assistant costume designers">Assistant costume designers</option>
+            <option value="Movie reviewers">Movie reviewers</option>
             <option value="Guest">Guest</option>
-            <option value="Movie promoters">Movie promoter</option>
+            <option value="Movie promoters">Movie promoters</option>
       
 
           </select>
