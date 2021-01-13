@@ -30,7 +30,8 @@ log.LoginUser = async (req,res)=>
                 req.body.email ='';
             }
             req.session.UserId = null;
-            res.render('login',{error:'Invalid Email or Password',email:req.body.email})
+            //res.render('login',{error:'Invalid Email or Password',email:req.body.email})
+            res.redirect(`/login?e=${req.body.email}&r=${code.toString()}`);
         
         });
         ///Set Session Id
