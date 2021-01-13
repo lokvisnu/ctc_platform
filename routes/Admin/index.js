@@ -141,6 +141,9 @@ router.get('/p/s/:id',ChechADMIN,(req,res)=>
                 docs[0].aadhar = aadhar;
                 docs[0].phno = phno;
                 docs[0].address = address;
+                var nowDate = docs[0].expDate;
+                var dt = nowDate.getDate()+'/'+(nowDate.getMonth()+1)+'/'+nowDate.getFullYear(); 
+                docs[0].expD = dt;
                 //console.log("Aadhar: " + aadhar)
                 //console.log('Phno: ' + phno)
                 //console.log('Address: ' + address);
