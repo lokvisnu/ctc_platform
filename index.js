@@ -254,7 +254,7 @@ app.get('/contact',(req,res)=>{
         res.render('contactus',{title:'Countact Us - Cinema Thalam Creations',contact:'active',notLog:Logged});
     }
 })
-app.get('/renew',perm.LoggedCheck,perm.RenewCheck,(req,res)=>
+app.get('/renew',perm.PayCheck,perm.LoggedCheck,perm.RenewCheck,(req,res)=>
 {
     var Logged = false;
     UserLogged(req)
