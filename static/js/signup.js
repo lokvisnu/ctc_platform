@@ -2,12 +2,12 @@ document.getElementsByTagName
 Array.from(document.getElementsByTagName('input')).forEach((i,index,a)=>{
     i.addEventListener('change',clearErr);
 })
-var a = document.querySelector('#aadhar');
-document.querySelector('#aadhar').addEventListener('change',()=>
+//var a = document.querySelector('#aadhar');
+/*document.querySelector('#aadhar').addEventListener('change',()=>
 {
     if (a.value.length > a.maxLength) 
         a.value = a.value.slice(0, a.maxLength);
-})
+})*/
 var p = document.querySelector('#phno');
 document.querySelector('#phno').addEventListener('change',()=>
 {
