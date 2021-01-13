@@ -51,7 +51,7 @@ app.use(function (req, res, next) {
     );
     res.setHeader(
         'Content-Security-Policy-Report-Only',
-      "default-src 'self'; font-src 'self'; img-src 'self' https://i.ytimg.com http://www.w3.org; script-src 'self' 'unsafe-inline'; style-src 'self'  'unsafe-inline'; frame-src 'self' https://www.youtube.com https://youtube.com https://www.google.com;"
+      "default-src 'self'; font-src 'self'; img-src *.ytimg.com *.w3.org 'self' ; script-src 'self' 'unsafe-inline'; style-src 'self'  'unsafe-inline'; frame-src 'self' https://www.youtube.com https://youtube.com https://www.google.com; script-src-elem *.tawk.to 'self' 'unsafe-inline' ; connect-src *.tawk.to wss://*.tawk.to 'self' "
     );
     next();
   });
