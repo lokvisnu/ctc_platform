@@ -51,7 +51,7 @@ app.use(function (req, res, next) {
     );
     res.setHeader(
         'Content-Security-Policy-Report-Only',
-      "default-src 'self'; font-src 'self'; img-src *.ytimg.com *.w3.org 'self' ; script-src 'self' 'unsafe-inline'; style-src 'self'  'unsafe-inline'; frame-src 'self' https://www.youtube.com https://youtube.com https://www.google.com; script-src-elem *.tawk.to 'self' 'unsafe-inline' ; connect-src *.tawk.to wss://*.tawk.to 'self' "
+      "default-src 'self'; font-src 'self' *.googleapis.com *.gstatic.com *.w3schools.com; img-src *.ytimg.com *.w3.org *.w3schools.com 'self' ; script-src 'self' 'unsafe-inline'; style-src 'self'  'unsafe-inline' *.w3schools.com *.googleapis.com *.gstatic.com; frame-src 'self' https://www.youtube.com https://youtube.com https://www.google.com; script-src-elem *.tawk.to 'self' 'unsafe-inline' ; connect-src *.tawk.to wss://*.tawk.to 'self' "
     );
     next();
   });
