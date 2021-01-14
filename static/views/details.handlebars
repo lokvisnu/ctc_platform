@@ -28,6 +28,7 @@
         <p class="lead">For More Details Contact                     
           <p class="lead"><a href="tel:+919629203228"><i class="fas fa-phone"></i> +(91) 9629203228 </a><br> </p>         
           <p class="lead"><a href="tel:+919629203229"><i class="fas fa-phone"></i> +(91) 9629203229 </a><br></p>
+          <p class="lead"><a href="tel:+919677085058"><i class="fas fa-phone"></i> +(91) 9677085058 </a><br></p>
         </p>
       </center>
       <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
@@ -67,16 +68,13 @@
          {{#if utubelink}} <p class="card-text lead">My Yotube Channel: <a style='text-transform:capitalize' href="{{utubelink}}">{{utubelink}}</a></p>{{/if}}
         </div>
         {{#if video}}
-        <center>
-         <div class="card-body">
-           
-            <video width="1000" controls>
-            <source src='{{video}}' type="video/mp4">
-            <source src='{{video}}' type="video/org">
-            Your browser does not support HTML video.
+         <div class="carousel-item">
+            <video controls>
+              <source src='{{video}}' type="video/mp4">
+              <source src='{{video}}' type="video/org">
+              Your browser does not support HTML video.
             </video>
         </div>
-        </center>
       {{/if}}
       </div>
       </div>
@@ -90,6 +88,7 @@ end content-->
         <p class="lead" style='text-transform:uppercase;'>For More Details Contact                     
           <p class="lead"><a href="tel:+919629203228"><i class="fas fa-phone"></i> +(91) 9629203228 </a><br> </p>         
           <p class="lead"><a href="tel:+919629203229"><i class="fas fa-phone"></i> +(91) 9629203229 </a><br></p>
+          <p class="lead"><a href="tel:+919677085058"><i class="fas fa-phone"></i> +(91) 9677085058 </a><br></p>
         </p>
       </center>
             <div class="row">
@@ -107,7 +106,7 @@ end content-->
                           </div>
                         {{/each}}
                         {{#if video}}
-                         <div class="carousel-item"></div>
+                         <div class="carousel-item">
                             <video controls>
                               <source src='{{video}}' type="video/mp4">
                               <source src='{{video}}' type="video/org">
@@ -129,7 +128,7 @@ end content-->
               </div>
               <div class="col">
             <h3 class="display-4" style="text-transform:capitalize;">{{name}}</h3> 
-            <p class="card-text lead" style="text-transform:uppercase; background-color:lightgray;border-radius:20px;padding:5px;padding-left:50px;"><strong>Ref No:</strong> <input id='Ref' value="{{list_id}}" type="text" style="width:250px;" readonly/><i class="far fa-copy card-text lead" style="margin-left:10px;" id='copy'></i></p>
+            <p class="card-text lead" style="text-transform:uppercase;"><strong>Ref No:</strong> <input id='Ref' value="{{list_id}}" type="text" style="width:250px;" readonly/><i class="far fa-copy card-text lead" style="margin-left:10px;" id='copy'></i></p>
             <p class="card-text lead" style="text-transform:uppercase;">Category: <strong >{{categ}}</strong></p>
             <p class="card-text lead" style="text-transform:uppercase;">Date of birth: {{dob}}</p>
             <p class="card-text lead" style="text-transform:uppercase;">Age: {{age}}</p>
