@@ -76,22 +76,6 @@
                         </div>
                      </div>
 
-<?php
-if(!empty($_POST["send"])) {
-	$visitor_name = $_POST["visitor_name"];
-	$visitor_email = $_POST["visitor_email"];
-	$visitor_subject = $_POST["visitor_subject"];
-	$visitor_message = $_POST["visitor_message"];
-
-	$toEmail = "cinemathalamcreations@gmail.com";
-	$mailHeaders = "From: " . $visitor_name . "<". $visitor_email .">\r\n";
-	if(mail($toEmail, $visitor_subject, $visitor_message, $mailHeaders)) {
-	    $message = "Your contact information is received successfully.";
-	    $type = "success";
-	}
-}
-require_once "contact.php";
-?>
 
                   </form>
         
