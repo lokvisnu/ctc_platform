@@ -75,7 +75,14 @@
                            <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Send Message</button>
                         </div>
                      </div>
-        
+                <?php
+                $from = "cinemathalamcreations@gmail.com";
+        $message = "hi how are you;
+        $headers = "From:" . $from; //$from must have from email adress
+        $headers .= "MIME-Version: 1.0" . "\r\n";
+        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+        mail($to,$subject,$message, $headers);
+                ?>
                   </form>
         
                 </div>
