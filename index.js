@@ -68,7 +68,7 @@ app.use(function (req, res, next) {
     );
     res.setHeader(
         'Content-Security-Policy-Report-Only',
-      "default-src 'self'; font-src 'self' *.googleapis.com *.gstatic.com *.w3schools.com; img-src *.ctcplatform.com *.ctcplatforms.com *.ytimg.com *.w3.org *.w3schools.com 'self' ; script-src 'self' 'unsafe-eval' unsafe-inline' https://cdnjs.cloudflare.com https://code.jquery.com https://cdn.jsdelivr.net; style-src 'self'  'unsafe-inline' *.w3schools.com *.googleapis.com *.gstatic.com; frame-src 'self' https://www.youtube.com https://youtube.com https://www.google.com; script-src-elem *.tawk.to https://cdnjs.cloudflare.com https://code.jquery.com https://cdn.jsdelivr.net 'self' 'unsafe-inline' unsafe-eval' ; connect-src *.tawk.to wss://*.tawk.to 'self' "
+      "default-src 'self'; font-src 'self' *.googleapis.com *.gstatic.com *.w3schools.com; img-src *.ctcplatform.com *.ctcplatform.com *.ytimg.com *.w3.org *.w3schools.com 'self' ; script-src 'self' 'unsafe-eval' unsafe-inline' https://cdnjs.cloudflare.com https://code.jquery.com https://cdn.jsdelivr.net; style-src 'self'  'unsafe-inline' *.w3schools.com *.googleapis.com *.gstatic.com; frame-src 'self' https://www.youtube.com https://youtube.com https://www.google.com; script-src-elem *.tawk.to https://cdnjs.cloudflare.com https://code.jquery.com https://cdn.jsdelivr.net 'self' 'unsafe-inline' unsafe-eval' ; connect-src *.tawk.to wss://*.tawk.to 'self' "
     );
     next();
   });
@@ -165,7 +165,7 @@ app.get('/artist/:list_id',perm.LoggedCheck,perm.PayCheck,perm.RenewCheck,(req,r
                             if(docs[0].IsPayed==true&&docs[0].IsRenewed==true&&docs[0].active==true)
                             {
                                 docs[0].title = docs[0].name;
-                                docs[0].artists = 'active';
+                                docs[0].artist = 'active';
                                 docs[0].notLog=Logged;
                                 docs[0].otherPhoto.push(docs[0].profilePhoto)
                                 var dob = new Date(docs[0].dob).getFullYear();
