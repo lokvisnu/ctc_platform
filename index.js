@@ -1,5 +1,6 @@
 //<Libraries and Modules>
 const express = require('express');
+const compression = require('compression');
 const app = express();
 const cont = require('./modules/dbcontroller');
 const http = require('http');
@@ -19,15 +20,12 @@ const { CheckLoged } = require('./modules/serverErrorHandling');
 const gv  = require('./modules/globalVariables')
 const cpanel = require('./api/models/cpanel');
 const { resolve } = require('path');
+const { LoginCheck } = require('./modules/permissions');
+const shortid = require('shortid');
 //</Libraries and Modules>
 //<Global Variables>
 //<Middle-Ware>
 //</Midle-ware>
-var staticFiles = {
-    css:{path:'/css/',type:'text/css'},
-    img:{path:'/img/',type:'image'},
-    j  :{path:'/js/',type:'text/javascript'}
-}
 const SESS ={
     ID:'sid',
     SECRET:'<______Secret _____>'
@@ -36,12 +34,31 @@ const SESS ={
 
 //</Global Variables>
 //<Middel-Ware>
-  //<Handelbars>
-    app.set('views',path.join(__dirname ,'static' ,'views'));
-    app.engine('handlebars',ehb({defaultLayout:'main'}));
-    app.set('view engine','handlebars');
+//<Compression>
+app.use(compression());
+//</compression>
+//<Handelbars>
+app.set('views',path.join(__dirname ,'static' ,'views'));
+app.engine('handlebars',ehb({defaultLayout:'main'}));
+app.set('view engine','handlebars');
   //</Handlebars>
+  //<Static Resourses Management>
 app.use('/assets',express.static('assets'))
+app.use('/img/',perm.LoggedCheck,express.static(path.join(__dirname,'static','img','users')));
+app.use('/vd/',perm.LoggedCheck,express.static(path.join(__dirname,'static','vd')));
+app.use('/st/f/img/',(req,res,next)=>
+{
+    if(req.path.toLowerCase().includes('users'))
+    {
+        res.status(404);
+        res.send('');
+    }
+    else
+        next();
+},express.static(path.join(__dirname,'static','img')))
+app.use('/st/f/j/',express.static(path.join(__dirname,'static','js')))
+app.use('/st/f/css/',express.static(path.join(__dirname,'static','css')))
+ //<Static Resourses Management>
 app.use(helmet())
 //Content Security
 app.use(function (req, res, next) {
@@ -51,7 +68,7 @@ app.use(function (req, res, next) {
     );
     res.setHeader(
         'Content-Security-Policy-Report-Only',
-      "default-src 'self'; font-src 'self' *.googleapis.com *.gstatic.com *.w3schools.com; img-src *.ytimg.com *.w3.org *.w3schools.com 'self' ; script-src 'self' 'unsafe-inline'; style-src 'self'  'unsafe-inline' *.w3schools.com *.googleapis.com *.gstatic.com; frame-src 'self' https://www.youtube.com https://youtube.com https://www.google.com; script-src-elem *.tawk.to 'self' 'unsafe-inline' ; connect-src *.tawk.to wss://*.tawk.to 'self' "
+      "default-src 'self'; font-src 'self' *.googleapis.com *.gstatic.com *.w3schools.com; img-src *.ctcplatform.com *.ctcplatforms.com *.ytimg.com *.w3.org *.w3schools.com 'self' ; script-src 'self' 'unsafe-eval' unsafe-inline' https://cdnjs.cloudflare.com https://code.jquery.com https://cdn.jsdelivr.net; style-src 'self'  'unsafe-inline' *.w3schools.com *.googleapis.com *.gstatic.com; frame-src 'self' https://www.youtube.com https://youtube.com https://www.google.com; script-src-elem *.tawk.to https://cdnjs.cloudflare.com https://code.jquery.com https://cdn.jsdelivr.net 'self' 'unsafe-inline' unsafe-eval' ; connect-src *.tawk.to wss://*.tawk.to 'self' "
     );
     next();
   });
@@ -83,192 +100,141 @@ function UserLogged(req)
 {
     return new Promise((res,rej)=>
     {
-        console.log(req.session.UserId)
+        //console.log(req.session.UserId)
         if(req.session.UserId)
         {
-            Users.find({id:req.session.UserId.toString()},(err,result)=>
+             Users.find({id:req.session.UserId.toString()},(err,result)=>
             {
                 if(!err&&result.length!=0)
-                    res();
+                    res(true);
                 else
-                    rej();
+                    res(false);
             })
         }
         else
-            rej();
+            res(false);
     })
 }
 
 //<Home , Login , Signup>
 //<Artists>
-app.get('/artists',perm.LoggedCheck,perm.PayCheck,perm.RenewCheck,(req,res)=>
+app.get('/artists',perm.LoggedCheck,perm.PayCheck,perm.RenewCheck,(req,res)=>{
+         res.render('category',{title:'Artists',artists:'active'});
+})
+app.get('/arts',perm.LoggedCheck,perm.PayCheck,perm.RenewCheck,(req,res)=>
 {
-    var Logged = false
-    UserLogged(req)
-    .then(()=>
-    {
-        Logged=true;
-        render();
-    })
-    .catch(()=>
-    {
-        Logged=false;
-        render();
-    })
-   // console.log("Logged ; "+Logged);
-    var c= req.query.c;
-    var p= req.query.p;
-    var date = new Date();
-    //console.log(req.query)
-    function render()
-    {
-        var options = 
-        {
+
+        var options = {
             IsPayed:true,
             IsRenewed:true,
             active:true,
-            expDate:
-            {
-                $gte:date
+            expDate:{
+                $gte:Date.now()
             }
-        };
-        (c!=null&&c!=''&&p!=undefined)? options.categ=c.toLowerCase():null/*console.log("No Category Mentioned in request")*/;
-        (p!=null&&p!=''&&p!=undefined)? options.city=p.toLowerCase():null/*console.log("No City Mentioned in request")*/;
-        //console.log(options)
-        Users.find(options).select(['name','categ','profilePhoto','list_id','city']).lean().exec().then((docs)=>
+
+        }
+        Users.find(options).sort({visitors:-1}).select(['name','categ','profilePhoto','list_id','city']).lean().exec().then((docs)=>
         {
-            var renderArray = docs.map((i,index,array)=>{
-                i.link = `${gv.INSTA_MOJO_REDIRECT_URL}/artist/${i.list_id}`
-                return i;
-            })
-            //console.log(renderArray)
-            res.render('category',{title:'Artists',item:renderArray,artists:'active',notLog:Logged});
+            res.status(200).json(docs);
         })
-    }
-    
-    
-});
+    });
 
 app.get('/artist/:list_id',perm.LoggedCheck,perm.PayCheck,perm.RenewCheck,(req,res)=>{
-    var Logged = false
     UserLogged(req)
-    .then(()=>
+    .then((Logged)=>
     {
-        Logged=true
-        render();
-    })
-    .catch(()=>
-    {
-        Logged=false
-        render();
-    })
-    //console.log("Logged ; "+Logged);
-   // console.log(req.params.list_id)
-   function render()
-   {
-    var date = new Date();
-    Users.find(
-        {
-            list_id:req.params.list_id,
-            expDate:
+        var date = new Date();
+        Users.find(
             {
-                $gte:date
-            }
-        },
-        ['list_id','height','weight','bloodgrp','name','exp','utubelink','profilePhoto','otherPhoto','video','techqualification','qualification','city','sex','categ','age','dob','zip','active','IsRenewed','IsPayed'])
-            .then((docs)=>{
-                //console.log(docs)
-                if(docs)
+                list_id:req.params.list_id,
+                expDate:
                 {
-                    if(docs[0].IsPayed==true&&docs[0].IsRenewed==true&&docs[0].active==true)
+                    $gte:date
+                }
+            },
+            ['id','visitors','list_id','height','weight','bloodgrp','name','exp','utubelink','profilePhoto','otherPhoto','video','techqualification','qualification','city','sex','categ','age','dob','zip','active','IsRenewed','IsPayed','visitor'])
+                .then((docs)=>{
+                    if(docs)
                     {
-                        docs[0].title = docs[0].name;
-                        docs[0].artists = 'active';
-                        docs[0].notLog=Logged;
-                        docs[0].otherPhoto.push(docs[0].profilePhoto)
-                    /* docs[0].city = capitalize(docs[0].city)
-                        docs[0].categ = capitalize(docs[0].categ)*/
-                        res.render('details',docs[0]);
+                        //console.log(docs[0].id,req.session.UserId)
+                        if(docs[0].id===req.session.UserId)
+                            res.redirect('/dashboard')
+                        else
+                        {
+                            
+                            if(docs[0].IsPayed==true&&docs[0].IsRenewed==true&&docs[0].active==true)
+                            {
+                                docs[0].title = docs[0].name;
+                                docs[0].artists = 'active';
+                                docs[0].notLog=Logged;
+                                docs[0].otherPhoto.push(docs[0].profilePhoto)
+                                var dob = new Date(docs[0].dob).getFullYear();
+                                var today = new Date().getFullYear()
+                                docs[0].age = today - dob;
+                                //console.log(docs[0].name," : ",docs[0].visitor,'visitors : ',docs[0].visitors);
+                                if(!docs[0].visitor||!docs[0].visitor.includes(req.session.UserId))
+                                {
+                                
+                                    
+                                    
+                                    Users.updateOne({ list_id:req.params.list_id},
+                                    {
+                                        $addToSet:{
+                                            visitor:req.session.UserId
+                                        },
+                                        $inc:{
+                                            visitors:1
+                                        }
+                                    }).then((docs)=>{render()})
+                                }
+                                else
+                                   render();
+                                function render()
+                                {
+                                    res.render('details',docs[0]);
+                                }
+                            }
+                            else
+                            {
+                                errhandle.reportErr(req,res,'404')
+                            }
+                        }   
                     }
                     else
                     {
-                        errhandle.reportErr(req,res,'404')
+
+                        console.log(docs[0].expDate)
                     }
-                }
-                else
+                })
+                .catch((err)=>
                 {
-                    //errhandle.reportErr(req,res,'404')
-                    console.log(docs[0].expDate)
-                }
-            })
-            .catch((err)=>
-            {
-                console.log(err);
-                errhandle.reportErr(req,res,'404')
-            })
-   }
-    
+                    console.log(err);
+                    errhandle.reportErr(req,res,'404')
+                })
+    })
 })
 //</Artists>
 app.get(['/','/home*'],(req,res)=>
 {
-    var Logged = true;
     UserLogged(req)
-    .then(()=>
+    .then((Logged)=>
     {
-        Logged=true;
-        render(true)
-    })
-    .catch(()=>
-    {
-        Logged=false
-        render(true)
-    })
-   //console.log("Logged ; "+Logged);
-   function render(r)
-   {
-       if(r)
-       {
-        res.status(200);
         res.render('home',{title:'Cinema Thalam Creations',home:'active',notLog:Logged});
-       }
-   }
-    
-
+    })
 })
 app.get('/contact',(req,res)=>{
-    var Logged = false
     UserLogged(req)
-    .then(()=>
-    {
-        Logged=true;
-        render();
-    })
-    .catch(()=>
-    {
-        Logged=false
-        render();
-    })
-    function render()
+    .then((Logged)=>
     {
         res.render('contactus',{title:'Countact Us - Cinema Thalam Creations',contact:'active',notLog:Logged});
-    }
+    })
+ 
 })
 app.get('/renew',perm.PayCheck,perm.LoggedCheck,perm.RenewCheck,(req,res)=>
 {
-    var Logged = false;
     UserLogged(req)
-    .then(()=>
+    .then((Logged)=>
     {
-        Logged=true;
-        render();
-    })
-    .catch(()=>
-    {
-        Logged=false
-        render();
-    })
-    function render(){
         Users.find({id:req.session.UserId})
         .then((docs)=>
         {
@@ -278,9 +244,10 @@ app.get('/renew',perm.PayCheck,perm.LoggedCheck,perm.RenewCheck,(req,res)=>
         })
         .catch(err=>
         {
-            console.log(err);
+            if(err)
+                console.log(err);
         })
-    }
+    })
 });
 app.get('/login',perm.LoginCheck,(req,res)=>
 {
@@ -297,42 +264,19 @@ app.get('/signup',perm.LoginCheck,(req,res)=>
     res.render('signup',{title:'Signup',signup:'active'});
 })
 app.get('/about',(req,res)=>{
-    var Logged = false
     UserLogged(req)
-    .then(()=>
-    {
-        Logged=true;
-        render();
-    })
-    .catch(()=>
-    {
-        Logged=false
-        render();
-    })
-    function render()
+    .then((Logged)=>
     {
         res.render('about',{title:'About - Cinema Thalam Creations',about:'active',notLog:Logged});
-    }
+    })
     
 })
 app.get('/whyctc',(req,res)=>{
-    var Logged = false
     UserLogged(req)
-    .then(()=>
-    {
-        Logged=true;
-        render();
-    })
-    .catch(()=>
-    {
-        Logged=false
-        render();
-    })
-    function render()
+    .then((Logged)=>
     {
         res.render('whyctc',{title:'Why Cinema Thalam Creations',whyctc:'active',notLog:Logged});
-    }
-    
+    })
 })
 app.get('/logout',(req,res)=>{
     req.session.destroy(function(err) 
@@ -355,53 +299,99 @@ app.get('/logout',(req,res)=>{
     
 })
 //</Home , Login , Signup>
-
-//<Static File Access>
-app.get('/st/f/:ext/:file',(req,res)=>
-{
-    var p = "some";
-    res.status(200);
-    try
-    {
-        if(staticFiles[req.params.ext].type == 'image')
-        {
-            var ctype = path.extname(req.params.file).split('.')[1];
-            //console.log(ctype)
-            res.set('Content-Type',staticFiles[req.params.ext].type+'/'+ctype);
-        }
-        else
-             res.set('Content-Type',staticFiles[req.params.ext].type);
-        p = path.join(__dirname,'static',staticFiles[req.params.ext].path,req.params.file);
-        res.sendFile(p.toString(),(err)=>
-        {
-            if(err)
-            {
-                errhandle.reportErr(req,res,404);
-                console.log(err)
-            }
-        });
-        
-        
-    }
-    catch(err)
-    {
-        console.log("Error")
-        console.log(err);
-        errhandle.reportErr(res,res,404);
-    }
-    
-});
-/*app.post('/u/up',upload.fields([{
-    name: 'profile', maxCount: 1
-  }, 
-  {
-    name: 'otherph', maxCount: 1
-  }]),(req,res)=>{
-      console.log(req.files)
-      res.send("Success");
-  });*/
 //</Static File Access/>
  //<Special Routes>
+ //<Dashboard>
+ app.get('/dashboard',perm.LoggedCheck,(req,res)=>
+ {
+     Users.findOne({id:req.session.UserId})
+     .then((docs)=>
+     {
+        //<Dashboadr ID>
+        //console.log(docs);
+        var dId = shortid.generate()+ req.session.UserId;
+        req.session.dId = dId;
+        var playload = {
+            user:req.session.UserId,
+            id:dId
+        }
+        playload = JSON.stringify(playload);
+        var load = perm.Crypto_Encrypt(playload);
+        docs.I = load;
+        docs.phno = perm.Crypto_Decrypt(docs.phno)
+        docs.address = perm.Crypto_Decrypt(docs.address);
+        docs.otherPhoto.push(docs.profilePhoto);
+        var ca = docs.categ.toLowerCase();
+        ca = ca.replace(' ','') ;
+        ca = ca.replace("'",'');
+        var ci = docs.city.toLowerCase();
+        ci = ci.replace(' ','');
+        ci = ci.replace("'",'');
+        docs[ca] = 'selected';
+        docs[ci] = 'selected';
+        //</Dashboard ID>
+        UserLogged(req)
+        .then((Logged)=>
+        {
+            docs.title = `Dashborad - ${docs.name}`
+            docs.notLog = Logged;
+            docs.dashboard = 'active';
+            res.render('dashboard',docs);
+        })
+        
+     });
+     
+ })
+ const capitalize = (s) => {
+    if (typeof s !== 'string') return ''
+    return s.charAt(0).toUpperCase() + s.slice(1)
+  }
+ app.put('/dashboard',perm.LoggedCheck,perm.DashboardCheck,(req,res)=>{
+     console.log(req.body)
+    var FinalFields = {};
+    var ValidFields = ['name','age','dob','phno','address','exp','categ','city','bloodgrp','qualification','techqualification','utubelink','height','weight','zip']
+    //<Filter Valid Fileds>
+    try
+    {
+        if(req.body)
+        {
+           ValidFields.forEach((i)=>{
+               if(req.body[i])
+                FinalFields[i] = req.body[i]
+
+           })
+           if(FinalFields.phno)
+           {
+               var ph = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+               if(!FinalFields.phno.match(ph))
+               {
+                console.log("Details Update Failed For : "+req.session.UserId +" Invalid Phnoe Number :" + FinalFields.phno)
+                res.status.json({success:false,InvalidField:true,message:'Invalid Phone Number'})
+               }
+               FinalFields.phno = perm.Crypto_Encrypt(FinalFields.phno);
+           }
+           if(FinalFields.address)
+            FinalFields.address = perm.Crypto_Encrypt(FinalFields.address);
+           Users.updateOne({id:req.session.UserId},FinalFields)
+           .then(()=>{
+               console.log("Details Updated For : "+req.session.UserId+" As "+JSON.stringify(FinalFields))
+               res.status(200).json({success:true,message:'Details Updated Successfully'});
+           })
+        }
+        else
+        {
+            console.log("Details Update Failed For : "+req.session.UserId)
+            res.status(404).json({success:false,message:'Upadate Process Failed'})
+        }
+    }
+    catch(err){
+        console.log(err)
+        res.json({success:false,message:'Invalid Request'})
+    }
+        
+    //</Filter Valid Fields>
+ })
+ //</Dashboard>
  app.use(['/u'],require('./routes/login_signup/index.js'))
  app.use(['/Admin'],require('./routes/Admin/index.js'))
 //</Special Routes>
