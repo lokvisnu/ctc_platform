@@ -1,3 +1,1 @@
-document.querySelector('#pay').addEventListener('submit',()=>{
-    return("Are You Sure You Want Set Paid True")
-},false)
+document.querySelector("#pay").addEventListener("submit",()=>"Are You Sure You Want Set Paid True",!1);

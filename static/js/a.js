@@ -1,11 +1,1 @@
-document.querySelector('#search_btn').addEventListener('click',(e)=>{
-    e.preventDefault();
-    var q = document.querySelector('#search').value;
-    if(q!=''){
-        q.trim();
-        window.location.href=`/Admin/p/s/${q}`;
-    }
-})
-document.querySelector('#logout').addEventListener('click',(e)=>{
-    window.location.href=`/Admin/ctc/lo/logout`;
-})
+document.querySelector("#search_btn").addEventListener("click",a=>{a.preventDefault();var b=document.querySelector("#search").value;""!=b&&(b.trim(),window.location.href=`/Admin/p/s/${b}`)}),document.querySelector("#logout").addEventListener("click",()=>{window.location.href=`/Admin/ctc/lo/logout`});
