@@ -45,6 +45,7 @@ const UserSchems = mongoose.Schema
     otherPhoto:[String],
     book_marked:[ {id : String , name:String} ],
     visitors:{type:Number,default:0},
+    visitor:[String],
     payment:[
         {
             payment_id:String,
