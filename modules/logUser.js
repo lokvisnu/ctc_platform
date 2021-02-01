@@ -170,8 +170,8 @@ log.Validate_Update_Payment= async (obj,req,res)=>
                 {
                     Pay_Id.deleteOne({id:i}).then(()=>res.redirect(`${gv.INSTA_MOJO_REDIRECT_URL}/home`));
                 }
-                })
-            }
+            })
+        }
             
             else
             {
@@ -188,6 +188,24 @@ catch(err){
     errHandle.reportErr(req,res,'404');
 }
 }
+log.ForgotPassword = (req,res)=>
+{
+    var email = req.body.email || null;
+    if(email)
+    {
+        Users.findOne({email:email.toString()}).select().exec((err,data)=>{
+            if(err || !data)
+                res.status(404).json({sucess:false,message:"Entered Email Does Not Exist"})
+            else
+            {
+
+            }
+        })
+    }
+    else
+        res.status(404).json({sucess:false,message:"Please Enter The Email"})
+}
+//////////////////////////////////
 function GetDate(){
     var nowDate = new Date(); 
     var date = nowDate.getFullYear()+'-'+(nowDate.getMonth()+1)+'-'+nowDate.getDate(); 
@@ -252,4 +270,6 @@ function NotFree(id)
         })
     });
 }
+
+
 module.exports = log;

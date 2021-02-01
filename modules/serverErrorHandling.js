@@ -9,7 +9,7 @@ ErrHandle.reportErr =(req,res,code)=>{
 ErrHandle.CheckLoged = (req,res)=>{
     if(req.session.UserId)
     {
-        Users.find({id:req.session.UserId.toString()},(err,result)=>
+         Users.find({id:req.session.UserId.toString()},(err,result)=>
         {
             if(!err&&result&&result.length>0)
             {

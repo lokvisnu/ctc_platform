@@ -36,7 +36,7 @@ gv.INSTA_MOJO_REPEATED = false;
 gv.INSTA_MOJO_CURRENCY = 'INR';
 //https://www.ctcplatform.com
 //http://localhost:3000
-gv.INSTA_MOJO_REDIRECT_URL = 'https://www.ctcplatform.com'
+gv.INSTA_MOJO_REDIRECT_URL = 'http://localhost:3000'
 gv.CPANEL = '5feb44c413f6182490c41b70';
 gv.MONGOUSNAME = 'ctc';
 gv.MONGODBPASS = '25A5vMcYsZnl2vRv'

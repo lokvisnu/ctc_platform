@@ -90,7 +90,7 @@ controller.AddNewUser = (obj,req)=>{
           pass:hashedPass,
           phno:hashedPh,
           dob:dob,
-          age:age,
+          //age:age,
           sex:sex,
           height:height,
           weight:weight,

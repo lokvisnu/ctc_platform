@@ -9,7 +9,8 @@ module.exports = {
  FrntEnd_Orgin:(req,res,next) =>{
    // console.log("Frontend Orgin check");
     var hed = req.headers;
-    if(hed['sec-fetch-site']=='same-orgin'&&hed['sec-fetch-mode']=='no-cors'&&hed.referer!=null||hed.referer!=undefined)
+    console.log(hed)
+    if(hed['sec-fetch-site']=='same-orgin'&&hed['sec-fetch-mode']=='no-cors')
         next();
     else
         errhandle.reportErr(req,res,405);
@@ -70,6 +71,7 @@ RenewCheck:(req,res,next) =>
   })
     
 },
+
 RedirectPayment:(req,id,amount,res,pur)=>{
     var key = Crypto_Encrypt(id);
     //console.log(id)
@@ -121,6 +123,15 @@ RedirectPayment:(req,id,amount,res,pur)=>{
             })
             
 },
+DashboardCheck:(req,res,next)=>{
+  //console.log(req.body)
+  var playload = Crypto_Decrypt(req.body.p);
+  playload = JSON.parse(playload);
+  if(req.session.dId==playload.id&&req.session.UserId == playload.user)
+    next();
+  else
+    res.json({success:false,message:"Invalid Request"});
+},
 SignupValidate:(req,res,next)=>
 {
   //console.log(req.body);
@@ -156,6 +167,21 @@ SignupValidate:(req,res,next)=>
     res.render('signup',{error:`Please Enter Details To Continue`})
   else
     next();
+}
+,Crypto_Decrypt:(e)=>
+{
+    var mykey = crypto.createDecipher('aes-128-cbc', gv.CRYPTO_SECRET_INSTA_MOJO);
+    var mystr = mykey.update(e.toString(), 'hex', 'utf8')
+    mystr += mykey.final('utf8');
+   // console.log(mystr); 
+    return mystr;
+},
+Crypto_Encrypt:(e)=> 
+{
+    var mykey = crypto.createCipher('aes-128-cbc',gv.CRYPTO_SECRET_INSTA_MOJO);
+    var key = mykey.update(e.toString(), 'utf8', 'hex')
+    key += mykey.final('hex');
+    return key;
 }
 }
 function Crypto_Decrypt(e)
