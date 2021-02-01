@@ -47,11 +47,14 @@
                         {{/each}}
                         {{#if video}}
                          <div class="carousel-item">
-                            <video controls>
+                            <video class="embed-responsive-item">
+                              <source src="{{video}}" type="video/mp4">
+                            </video>
+                            <!--<video controls>
                               <source src='{{video}}' type="video/mp4">
                               <source src='{{video}}' type="video/org">
                               Your browser does not support HTML video.
-                            </video>
+                            </video>-->
                           </div>
                         {{/if}}
                      
