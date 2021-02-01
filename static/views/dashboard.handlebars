@@ -1,0 +1,201 @@
+<style>
+ .s-button {
+   font-family: Arial, Helvetica, sans-serif;
+    font-style: bold;
+    padding:10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-bottom: 50px;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    
+ }
+  .active_s{
+    background-color:green;
+    
+}
+ .inactive_s{
+  background-color: gray;
+}
+</style>
+<div class="jumbotron">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12 text-left">
+            </div>
+          </div>
+            <div id='row' class='{{I}}'></div>
+            <div class="row"> 
+              <div class="col-md-6">
+               <strong><p id ="err" style="color:red;"></p></strong>
+                 <strong><p id ="success" style="color:green;font-size:medium;font-family:Arial;font-weight:100;"></p></strong>
+                 <button class='inactive_s s-button'  id="save-changes"><strong>Save Changes</strong></button>
+                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                      {{#each otherPhoto}}
+                        <li data-target="#carouselExampleIndicators" data-slide-to={{@index}}></li>
+                      {{/each}}
+                    </ol>
+                    <div class="carousel-inner">
+                       {{#each otherPhoto}}
+                          <div class="carousel-item {{#unless @index}}active{{/unless}}">
+                            <img class="d-block w-100" src="{{this}}" alt="First slide">
+                          </div>
+                        {{/each}}
+                        {{#if video}}
+                         <div class="carousel-item">
+                            <video controls>
+                              <source src='{{video}}' type="video/mp4">
+                              <source src='{{video}}' type="video/org">
+                              Your browser does not support HTML video.
+                            </video>
+                          </div>
+                        {{/if}}
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="sr-only">Next</span>
+                    </a>
+                  </div>
+                  <br>
+              </div>
+              
+              <div class="col">
+                 <p class="card-text "style="background-color:grey;border-radius:10px;padding:10px;color:white;font-family:Arial;font-size:1.5rem;"><i class="far fa-eye" style='margin-right:20px;border-radius:10px 10px 0px 0xp; background-color:lightgray; padding:10px;color:black;'></i><strong style='text-transform:capitalize'>{{visitors}}</strong></p> 
+                <p class="card-text lead">Name: <strong style='text-transform:capitalize'></strong> <input class="edit" id='name' {{ some }} value="{{name}}" type="text" style="width:250px;" >  <i class="fas fa-edit"></i></p>
+                <label for="categ">Category: </label>
+                <select name="categ" id="categ"  class='edit'>
+                <option {{ director }} value="director">Director</option>
+                <option {{ characterartist }} value="character artist">Character artist</option>
+                <option {{ femaleartist }} value="female artist">Female artist</option>
+                <option {{ maleartist }} value="male artist">Male artist</option>
+                <option {{ transgenderartist }} value="transgender artist">Transgender artist</option>
+                <option {{ malemodel }} value="male model">Male model</option>
+                <option {{ femalemodel }} value="female model">Female model</option>
+                <option {{ choreographer }} value="choreographer">Choreographer</option>
+                <option {{ costumedesginer }} value="costume desginer">Costume desginer</option>
+                <option {{ make-upartist }} value="make-up artist">Make-up artist</option>
+                <option {{ productionmanager }} value="production manager">Production manager</option>
+                <option {{ storyboardartist }} value="story board artist">Story board artist</option>
+                <option {{ stuntdirector }} value="stunt director">Stunt director</option>
+                <option {{ artdirector }} value="art director">Art director</option>
+                <option {{ cinematographers }} value="cinematographers">Cinematographers</option>
+                <option {{ editor }} value="editor">Editor</option>
+                <option {{ musicdirector }} value="music director">Music director</option>
+                <option {{ photographer }} value="photographer">Photographer</option>
+                <option {{ posterdesigner }} value="poster designer">Poster designer</option>
+                <option {{ soundengineer }} value="sound engineer">Sound engineer</option>
+                <option {{ vfx }} value="vfx">VFX</option>
+                <option {{ dubbingartist }} value="dubbing artist">Dubbing artist</option>
+                <option {{ rj }} value="rj">RJ</option>
+                <option {{ singer }} value="singer">Singer</option>
+                <option {{ voice-overartist }} value="voice-over artist">Voice-over artist</option>
+                <option {{ dialougewriter }} value="dialouge writer">Dialouge writer</option>
+                <option {{ lyricwriter }} value="lyric writer">Lyric writer</option>
+                <option {{ screenplaywriter }} value="screenplay writer">Screenplay writer</option>
+                <option {{ subtitlewriter }} value="subtitle writer">Subtitle writer</option>
+                <option {{ vendor }} value="vendor">Vendor</option>
+                <option {{ pros }} value="pros">PRO's</option>
+                <option {{ producer }} value="producer">Producer</option>
+                <option {{ vj }} value="vj">VJ</option>
+                <option {{ storyboard }} value="story board">Story board</option>
+                <option {{ foley }} value="foley">Foley</option>
+                <option {{ dolly }} value="dolly">Dolly</option>
+                <option {{ di }} value="di">DI</option>
+                <option {{ syncsound }} value="sync sound">Sync sound</option>
+                <option {{ asssistantdirector }} value="asssistant director">Assistant director</option>
+                <option {{ childartist }} value="child artist">Child artist</option>
+                <option {{ associatedirector }} value="associate director">Associate director</option>
+                <option {{ assistantartdirector }} value="assistant art director">Assistant art director</option>
+                <option {{ assistantcinematographer }} value="assistant cinematographer">Assistant cinematographer</option>
+                <option {{ assistantcostumedesigner }} value="assistant costume designer">Assistant costume designer</option>
+                <option {{ moviereviewer }} value="movie reviewer">Movie reviewer</option>
+                <option {{ guest }} value="guest">Guest</option>
+                <option {{ moviepromoter }} value="movie promoter">Movie promoter</option>
+                </select>                
+                <p class="card-text lead">Date of birth:<strong style='text-transform:capitalize'></strong> <input id='dob' value="{{dob}}" type="date" style="width:250px;"class='edit' >     <i class="fas fa-edit"></i></p>
+                <p class="card-text lead">Age: <strong style='text-transform:capitalize'></strong> <input class="edit" id='age' {{ some }} value="{{age}}" type="text" style="width:250px;" >  <i class="fas fa-edit"></i></p>
+                <label>Show Age: </label><input type="checkbox" id='showAge' name='showAge' class='edit'style='margin-left:20px;' {{showAge}}>
+               
+                <p class="card-text lead">Blood group: <strong style='text-transform:capitalize'></strong><input class="edit" id='bloodgrp' {{ some }} value="{{bloodgrp}}" type="text" style="width:250px;" >  <i class="fas fa-edit"></i></p>
+                <p class="card-text lead">Height: <strong style='text-transform:capitalize'></strong><input class="edit" id='height' {{ some }} value="{{height}}" type="text" style="width:250px;" >  <i class="fas fa-edit"></i></p>
+                <p class="card-text lead">Weight: <strong style='text-transform:capitalize'></strong><input class="edit" id='weight' {{ some }} value="{{weight}}" type="text" style="width:250px;" >  <i class="fas fa-edit"></i></p>
+                <p class="card-text lead">Qualification: <strong style='text-transform:capitalize'></strong><input class="edit" id='qualification' {{ some }} value="{{qualification}}" type="text" style="width:250px;" >  <i class="fas fa-edit"></i></p>
+                <p class="card-text lead">Extra qualification:<strong style='text-transform:capitalize'></strong><input class="edit" id='techqualification' {{ some }} value="{{techqualification}}" type="text" style="width:250px;" >  <i class="fas fa-edit"></i></p>
+                <p class="card-text lead">Years of Experience:<strong style='text-transform:capitalize'></strong><input class="edit" id='exp' {{ some }} value="{{exp}}" type="number" style="width:250px;" >  <i class="fas fa-edit"></i></p>
+                <p class="card-text lead">Phone Number: <strong style='text-transform:capitalize'></strong><input class="edit" id='phno' {{ some }} value="{{phno}}" type="number" style="width:250px;" >  <i class="fas fa-edit"></i></p>
+                
+                 <!--<p class="card-text lead">Aadhar: {{aadhar}}</p>-->
+                <p class="card-text lead">Address: <strong style='text-transform:capitalize'></strong><input class="edit" id='address' {{ some }} value="{{address}}" type="text" style="width:250px;" >  <i class="fas fa-edit"></i></p>
+                <p class="card-text lead">Youtube Link: <strong style='text-transform:capitalize'></strong><input class="edit" id='utubelink' {{ some }} value="{{utubelink}}" type="text" style="width:250px;" >  <i class="fas fa-edit"></i></p>
+              <label for="inputState">District</label>
+              <select name="city" class='edit'id="city">
+              <option {{ some }} value="choose">Choose...</option>
+              <option {{ some }} value="ariyalur" {{ariyalur}}>Ariyalur</option>
+              <option {{ some }} value="chengalpattu" {{chengalpattu}}>Chengalpattu</option>
+              <option {{ some }} value="chennai" {{chennai}}>Chennai</option>
+              <option {{ some }} value="coimbatore" {{coimbatore}}>Coimbatore</option>
+              <option {{ some }} value="cuddalore" {{cuddalore}}>cuddalore</option>
+              <option {{ some }} value="dharmapuri" {{dharmapuri}}>Dharmapuri</option>
+              <option {{ some }} value="dindigul"{{dindigul}} >Dindigul</option>
+              <option {{ some }} value="erode"{{erode}}>Erode</option>
+              <option {{ some }} value="kallakurichi"{{kallakurichi}}>Kallakurichi</option>
+              <option {{ some }} value="kanchipuram"{{kanchipuram}}>Kanchipuram</option>
+              <option {{ some }} value="kanyakumari"{{kanyakumari}}>Kanyakumari</option>
+              <option {{ some }} value="karur"{{karur}}>Karur</option>
+              <option {{ some }} value="krishnagiri"{{krishnagiri}}>Krishnagiri</option>
+              <option {{ some }} value="madurai"{{madurai}}>Madurai</option>
+              <option {{ some }} value="nagapattinam"{{nagapattinam}}>Nagapattinam</option>
+              <option {{ some }} value="namakkal"{{namakkal}}>Namakkal</option>
+              <option {{ some }} value="nilgiris"{{nilgiris}}>Nilgiris</option>
+              <option {{ some }} value="perambalur"{{perambalur}}>Perambalur</option>
+              <option {{ some }} value="pudukottai"{{pudukottai}}>Pudukottai</option>
+              <option {{ some }} value="ramanathapuram"{{ramanathapuram}}>Ramanathapuram</option>
+              <option {{ some }} value="ranipet"{{ranipet}}>Ranipet</option>
+              <option {{ some }} value="salem"{{salem}}>Salem</option>
+              <option {{ some }} value="sivagangai"{{sivagangai}}>Sivagangai</option>
+              <option {{ some }} value="tenkasi"{{tenkasi}}>Tenkasi</option>
+              <option {{ some }} value="thanjavur"{{thanjavur}}>Thanjavur</option>
+              <option {{ some }} value="theni"{{theni}}>Theni</option>
+              <option {{ some }} value="thoothukudi"{{thoothukudi}}>Thoothukudi</option>
+              <option {{ some }} value="tiruchirapalli"{{tiruchirapalli}}>Tiruchirapalli</option>
+              <option {{ some }} value="tirunelveli"{{tirunelveli}}>Tirunelveli</option>
+              <option {{ some }} value="tirupathur"{{tirupathur}}>Tirupathur</option>
+              <option {{ some }} value="tiruppur"{{tiruppur}}>Tiruppur</option>
+              <option {{ some }} value="tiruvallur"{{tiruvallur}}>Tiruvallur</option>
+              <option {{ some }} value="tiruvannamalai"{{tiruvannamalai}}>Tiruvannamalai</option>
+              <option {{ some }} value="tiruvarur"{{tiruvarur}}>Tiruvarur</option>
+              <option {{ some }} value="vellore"{{vellore}}>Vellore</option>
+              <option {{ some }} value="villupuram"{{villupuram}}>Villupuram</option>
+              <option {{ some }} value="virudhunagar"{{virudhunagar}}>Virudhunagar</option>
+              <option {{ some }} value="thiruvananthapuram"{{thiruvananthapuram}}>Thiruvananthapuram</option>
+              <option {{ some }} value="kollam"{{kollam}}>Kollam</option>
+              <option {{ some }} value="alappuzha"{{alappuzha}}>Alappuzha</option>
+              <option {{ some }} value="pathanamthitta"{{pathanamthitta}}>Pathanamthitta</option>
+              <option {{ some }} value="kottayam"{{kottayam}}>Kottayam</option>
+              <option {{ some }} value="idukki"{{idukki}}>Idukki</option>
+              <option {{ some }} value="ernakulam"{{ernakulam}}>Ernakulam</option>
+              <option {{ some }} value="thrissur"{{thrissur}}>Thrissur</option>
+              <option {{ some }} value="palakkad"{{palakkad}}>Palakkad</option>
+              <option {{ some }} value="malappuram"{{malappuram}}>Malappuram</option>
+              <option {{ some }} value="kozhikode"{{kozhikode}}>Kozhikode</option>
+              <option {{ some }} value="wayanad"{{wayanad}}>Wayanad</option>
+              <option {{ some }} value="kannur"{{kannur}}>Kannur</option>
+              <option {{ some }} value="kasaragod"{{kasaragod}}>Kasaragod</option>
+
+        
+            </select>                
+            <p class="card-text lead">Pin code: <strong style='text-transform:capitalize'></strong><input class="edit" id='zip' {{ some }} value="{{zip}}" type="text" style="width:250px;" >  <i class="fas fa-edit"></i></p>
+                <br>
+              </div>
+            </div><BR><BR>
+ 
+            </div>
+        </div>
+        <script src="/st/f/j/dashboard.js"></script>
